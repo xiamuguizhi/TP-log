@@ -85,6 +85,7 @@ www  WEB部署目录（或者子目录）
 ~~~
 
 ## 模板格式说明
+~~~
 theme\frontend\default(以默认主题为例）
 ├─default           主题目录
 │  ├─404               错误页
