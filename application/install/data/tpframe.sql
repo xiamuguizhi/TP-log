@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `tpf_blog` (
 -- Records of tpf_blog
 -- ----------------------------
 INSERT INTO `tpf_blog` (`id`, `title`, `datetime`, `content`, `abstract`, `thumb`, `alias`, `author`, `cateid`, `source`, `channel`, `view`, `comnum`, `hide`, `template`, `tag`, `likes`, `short_link`, `updatetime`, `iscomment`, `istop`, `password`) VALUES
-(1, '欢迎使用TP-Blog',UNIX_TIMESTAMP(now()), '<p>恭喜您成功安装了TP-Blog，这是系统自动生成的演示文章。编辑或者删除它，然后开始您的创作吧！</p>', '', '', 1, 1, 1, '', 'blog', 0, 0, 'n', '', '', 0,NULL,UNIX_TIMESTAMP(now()), 1, 0, ''),
+(1, '欢迎使用TP-log',UNIX_TIMESTAMP(now()), '<p>恭喜您成功安装了TP-log，这是系统自动生成的演示文章。编辑或者删除它，然后开始您的创作吧！</p>', '', '', 1, 1, 1, '', 'blog', 0, 0, 'n', '', '', 0,NULL,UNIX_TIMESTAMP(now()), 1, 0, ''),
 (2, '归档', UNIX_TIMESTAMP(now()), '<p>对应模板page文件里的arcive</p>', '', '', 'archive', 1, -1, '', 'page', 0, 0, 'n', 'page_archive', '', 0, NULL,UNIX_TIMESTAMP(now()), 1, 0, ''),
 (3, '邻居', UNIX_TIMESTAMP(now()), '<p style=\"text-align: center;\">链接说明</p>', '链接说明...', '', 'neighbor', 1, -1, '', 'page', '', 0, 'n', 'page_links', '', 0, NULL, UNIX_TIMESTAMP(now()), 0, 0, ''),
 (4, '留言', UNIX_TIMESTAMP(now()), '<p style=\"text-align:center;\">\r\n	同志们，加油！你的评论越多，位置就越靠前。&nbsp;\r\n</p>', '', '', 'waterwall', 1, -1, '', 'page', 0, 0, 'n', 'page_message', '', 0, NULL,UNIX_TIMESTAMP(now()), 1, 0, '');
