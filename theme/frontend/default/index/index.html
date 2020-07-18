@@ -76,7 +76,7 @@
                             </a>
                         </div>
                         <a href="{:url('Posts/show',['alias'=>$vo.alias])}" >
-                        <h1>{eq name="$vo.istop" value="1 "}<span style="color:red">[顶置] </span>{/eq}{$vo.title}{if condition="view_news($vo.datetime) eq true"}<sup style="font-size:20px;color:red"><i class="czs-new-l"></i></sup>{/if}</h1>
+                        <h1>{eq name="$vo.istop" value="1"}<span style="color:red">[顶置] </span>{/eq}{$vo.title}{if condition="view_news($vo.datetime) eq true"}<sup style="font-size:20px;color:red"><i class="czs-new-l"></i></sup>{/if}</h1>
                         <p>
                         {notempty name="$list.abstract"}
 						{$vo.abstract|StringHelper::msubstr=0,100}	
