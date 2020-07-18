@@ -1,0 +1,92 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+					<form action="{:url('Comment/reply')}" method="post" class="row js-ajax-form">			
+					
+					<div class="form-group col-md-12">
+					<label for="poster">评论者</label>
+					<input type="text" class="form-control" id="poster" value="{$list.poster}" placeholder="评论者" readonly="readonly"/>
+					</div>
+					<div class="form-group col-md-12">
+					<label for="time">评论时间</label>
+					<input type="text" class="form-control" id="time" value="{$list.date|smartDate}" placeholder="评论时间" readonly="readonly"/>
+					</div>
+					<div class="form-group col-md-12">
+                    <label for="reply">留言内容</label>
+                    <div  id="reply" style="background: #ebebeb;"><p style="margin-left: 12px;">{$list.comment|iSsmilies}</p></div>
+					<input type="hidden" name="reply" value="{$list.comment}">
+                    </div>
+					<div class="form-group col-md-12">
+                    <label for="comment">回复内容</label>
+					<p class="comment-smilies">
+<a class="add-smily" data-action="addSmily" data-smilies=":mrgreen:">
+<img alt=":mrgreen:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mrgreen.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":neutral:">
+<img alt=":neutral:" class="wp-smiley" src="/data/assets/images/emoticons/icon_neutral.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":twisted:">
+<img alt=":twisted:" class="wp-smiley" src="/data/assets/images/emoticons/icon_twisted.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":arrow:">
+<img alt=":arrow:" class="wp-smiley" src="/data/assets/images/emoticons/icon_arrow.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":shock:">
+<img alt=":shock:" class="wp-smiley" src="/data/assets/images/emoticons/icon_eek.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":smile:">
+<img alt=":smile:" class="wp-smiley" src="/data/assets/images/emoticons/icon_smile.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":???:"><img alt=":???:" class="wp-smiley" src="/data/assets/images/emoticons/icon_confused.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cool:"><img alt=":cool:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cool.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":evil:"><img alt=":evil:" class="wp-smiley" src="/data/assets/images/emoticons/icon_evil.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":grin:"><img alt=":grin:" class="wp-smiley" src="/data/assets/images/emoticons/icon_biggrin.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":idea:"><img alt=":idea:" class="wp-smiley" src="/data/assets/images/emoticons/icon_idea.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":oops:"><img alt=":oops:" class="wp-smiley" src="/data/assets/images/emoticons/icon_redface.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":razz:"><img alt=":razz:" class="wp-smiley" src="/data/assets/images/emoticons/icon_razz.gif"
+></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":roll:"><img alt=":roll:" class="wp-smiley" src="/data/assets/images/emoticons/icon_rolleyes.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":wink:"><img alt=":wink:" class="wp-smiley" src="/data/assets/images/emoticons/icon_wink.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cry:"><img alt=":cry:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cry.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":eek:">
+<img alt=":eek:" class="wp-smiley" src="/data/assets/images/emoticons/icon_surprised.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":lol:"><img alt=":lol:" class="wp-smiley" src="/data/assets/images/emoticons/icon_lol.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":mad:"><img alt=":mad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":sad:"><img alt=":sad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_sad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":!:"><img alt=":!:" class="wp-smiley" src="/data/assets/images/emoticons/icon_exclaim.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":?:"><img alt=":?:" class="wp-smiley" src="/data/assets/images/emoticons/icon_question.gif">
+</a>                    
+</p>
+                    <textarea  id="comment" class="form-control" name="comment" rows="5" cols="57" placeholder="200字以内"></textarea>
+                    </div>		
+					<div class="form-group col-md-12">
+					<button type="submit" class="btn btn-primary js-ajax-submit" target-form="add-form">回 复</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+					</div>
+					<input type="hidden" name="gid" value="{$list.gid}" >
+					<input type="hidden" name="pid" value="{$list.id}" >
+					<input type="hidden" name="author" value="{$list.poster}" >
+					<input type="hidden" name="poster" value="{$poster.nickname}" >
+					<input type="hidden" name="url" value="{$poster.url}" >
+					<input type="hidden" name="mail" value="{$poster.email}" >					
+					<input type="hidden" name="tomail" value="{$list.mail}" >					
+					</form>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+	<script src="__THEMES__/js/admin.js"></script>
+{/block}

@@ -1,0 +1,55 @@
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>{$site_name} &raquo; {$title}</title>
+	<meta name="description" content="{:config('config.site_seo_description')}" />
+	<meta name="keywords" content="{:config('config.site_seo_keywords')}" />
+	<meta name="generator" content="TP-Blog 1.1/17.10.30" />
+	<meta name="template" content="{:config('config.DEFAULT_THEME')}" />
+	<link rel="alternate" type="application/rss+xml" title="{$site_name} &raquo; RSS 2.0" href="{$site_host}feed.xml" />
+	<link rel="alternate" type="application/rdf+xml" title="{$site_name} &raquo; RSS 1.0" href="{$site_host}rss.xml" />
+	<link rel="shortcut icon" href="__THEMES__/img/favicon.png">
+	<link rel="stylesheet" href="__THEMES__/layui/css/layui.css?v=2.5.6">
+	<link rel="stylesheet" href="__THEMES__/css/style.min.css?t=1594733854">
+	<script src="__THEMES__/js/jquery.min.js?v=3.1.1"></script>
+	<script src="__THEMES__/layui/layui.js?v=2.5.6"></script>
+	<script src="__THEMES__/js/main.min.js?v=2.0"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<!--[if lt IE 8]>
+    <div class="browsehappy" role="dialog">当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.</div>
+<![endif]-->
+<!-- header 导航 -->
+<div class="layui-header header">
+    <div class="layui-main">
+        <a class="logo" href="{$site_host}">
+            echo '{$site_name}';
+		</a>        
+        <ul class="layui-nav">
+            {volist name=':Core::loadAction("Nav/getNav")' id="vo" key="k"}
+			<li class='{$vo.icon} layui-nav-item layui-hide-xs  {eq name="$title" value="$vo.label"}layui-this{/eq}'> 
+			<a href="{:url($vo.href)}" {if condition="$k eq 3"/}data-no-instant{/if}>{$vo.label}</a>
+			</li>
+			{/volist}
+			{if condition="(empty($Think.session.backend_author_sign.username) neq true)"}
+			<li class='layui-nav-item layui-hide-xs'> 
+			<a href="{:url('index/loginout')}" class="js-loginout"  title="退出" data-toggle="tooltip" data-msg="您确定退出吗？">退出</a>
+			</li>
+			{/if}
+            <li class="layui-nav-item nav-btn layui-hide-sm">
+                <a href="javascript:;"><i class='layui-icon layui-icon-more'></i></a>
+                <dl class="layui-nav-child">
+				 {volist name=':Core::loadAction("Nav/getNav")' id="vo" key="k"}
+                 <dd><a href="{:url($vo.href)}">>{$vo.label}</a></dd>
+                 {/volist}
+				 {if condition="(empty($Think.session.backend_author_sign.username) neq true)"}
+				<dd><a href="{:url('index/loginout')}" class="js-loginout"  title="退出" data-toggle="tooltip" data-msg="您确定退出吗？">退出</a></dd>			
+				{/if}
+                 </dl>
+            </li>
+        </ul>
+    </div>
+</div>

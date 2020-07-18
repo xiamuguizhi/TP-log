@@ -1,0 +1,398 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+<form method="post" class="js-ajax-form" action="">  
+	<div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="msg" style="margin-left: 14px;">你还可以输入140字</h4>
+          <ul class="card-actions">
+            <li>
+              <button type="button" id="clear" data-toggle="tooltip" title="" data-original-title="清空"><i class="mdi mdi-broom"></i></button>
+            </li>
+          </ul>
+          <!-- .card-actions --> 
+        </div>
+        <div class="card-body">
+          <textarea maxLength="140" name="content" placeholder="用微语记录生活 ……(最多输入140字)" class="box form-control" id="content"></textarea>
+        </div>
+		<div id="tw_img" style="margin-left: 26px;margin-top: -14px;margin-bottom:10px;">
+				<ul id="ul_pics" class="ul_pics clearfix">
+				<input type="hidden" name="img[]" id="remove">
+                <li id="local_upload"><img src="__THEMES__/images/local_upload.png" id="twimg" class="img_common" /></li>
+            </ul>
+			</div>
+        <footer class="card-footer">
+        
+		 <div class="example-left m-t-10 pull-left">
+		 <span class="OwO">
+						<div class="OwO-logo">
+							<span><i class="mdi mdi-24px mdi-face" ></i></span>
+						</div>
+						<div class="OwO-body">
+							<ul class="OwO-items OwO-items-biaoqing OwO-items-show" style="max-height: 200px;">
+							<p class="comment-smilies">
+<a class="add-smily" data-action="addSmily" data-smilies=":mrgreen:">
+<img alt=":mrgreen:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mrgreen.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":neutral:">
+<img alt=":neutral:" class="wp-smiley" src="/data/assets/images/emoticons/icon_neutral.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":twisted:">
+<img alt=":twisted:" class="wp-smiley" src="/data/assets/images/emoticons/icon_twisted.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":arrow:">
+<img alt=":arrow:" class="wp-smiley" src="/data/assets/images/emoticons/icon_arrow.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":shock:">
+<img alt=":shock:" class="wp-smiley" src="/data/assets/images/emoticons/icon_eek.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":smile:">
+<img alt=":smile:" class="wp-smiley" src="/data/assets/images/emoticons/icon_smile.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":???:"><img alt=":???:" class="wp-smiley" src="/data/assets/images/emoticons/icon_confused.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cool:"><img alt=":cool:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cool.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":evil:"><img alt=":evil:" class="wp-smiley" src="/data/assets/images/emoticons/icon_evil.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":grin:"><img alt=":grin:" class="wp-smiley" src="/data/assets/images/emoticons/icon_biggrin.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":idea:"><img alt=":idea:" class="wp-smiley" src="/data/assets/images/emoticons/icon_idea.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":oops:"><img alt=":oops:" class="wp-smiley" src="/data/assets/images/emoticons/icon_redface.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":razz:"><img alt=":razz:" class="wp-smiley" src="/data/assets/images/emoticons/icon_razz.gif"
+></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":roll:"><img alt=":roll:" class="wp-smiley" src="/data/assets/images/emoticons/icon_rolleyes.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":wink:"><img alt=":wink:" class="wp-smiley" src="/data/assets/images/emoticons/icon_wink.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cry:"><img alt=":cry:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cry.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":eek:">
+<img alt=":eek:" class="wp-smiley" src="/data/assets/images/emoticons/icon_surprised.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":lol:"><img alt=":lol:" class="wp-smiley" src="/data/assets/images/emoticons/icon_lol.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":mad:"><img alt=":mad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":sad:"><img alt=":sad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_sad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":!:"><img alt=":!:" class="wp-smiley" src="/data/assets/images/emoticons/icon_exclaim.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":?:"><img alt=":?:" class="wp-smiley" src="/data/assets/images/emoticons/icon_question.gif">
+</a>                    
+</p>	
+							</ul>
+						</div>
+						
+					</span>
+         </div>
+          <div class="example-right pull-right">
+            <button class="btn btn-danger js-ajax-button" type="button"><i class="mdi mdi-plus"></i> 发布</button>
+          </div>
+        </footer>
+      </div>
+    </div>
+</form>
+
+		<div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                <form class="form-inline  form-search" method="get" action="">
+					<input type="hidden" name="act" value="search" />
+					时间：
+					<input type="text" name="start_time" class="form-control js-datetimepicker date" value="{$search.start_time|default=''}" style="width: 120px;" autocomplete="off" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD">-
+					<input type="text" class="form-control js-datetimepicker date" name="end_time" value="{$search.end_time|default=''}" style="width: 120px;" autocomplete="off" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD"> &nbsp; &nbsp;
+					<input type="submit" class="btn btn-primary" value="搜索">
+					<a class="btn btn-danger" href="{:url('Twitter/index')}">清空</a>
+				</form>
+                </div>
+            </div>
+        </div>
+		
+	<div class="col-lg-12">	
+      <div class="card">
+        <div class="card-body" id="list">
+          <ul class="">
+			{empty name="list"}
+			 <li class="lyear-timeline-item">没有记录，赶快去发布一条吧</li>
+			{else/}
+			{foreach name="list" item="vo"}
+            <li>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name"><span class="data-name">{$vo.nickname}</span><span class="right"><a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Twitter/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i></a></span></p>
+                        <div class="post" id="prewere">
+                            <p>{$vo.content|iSsmilies}</p>
+							{notempty name="$vo.img"}
+							<p>
+							{volist name=':Core::loadAction("Twitter/getImg",["tid"=>$vo.id])' id="v"}				
+							<img class="list-img" src="{$v}" title="点击查看原图" style="height: 80px;">
+							{/volist}	
+							</p>				
+							{/notempty}                         
+                        </div>
+                        <p class="time">{$vo.date|smartDate}</p><a  href="javascript:;" class="c-icon tw-reply" onclick="tw_reply({$vo.id},this)" data-no-instant><i class="mdi mdi-message-text-outline"></i> 回复({$vo.replynum})</a>
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like">点赞 {$vo.likes} </div>
+						{notempty name=':Core::loadAction("Twitter/getReply",["tid"=>$vo.id])'}
+                  
+                        <div class="cmt-list">
+							{volist name=':Core::loadAction("Twitter/getReply",["tid"=>$vo.id])' id="vv"}
+                             <span class="right"><a class="js-ajax-delete" href="{:url('Twitter/delr',['id'=>$vv['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？" data-msg="您确定删除吗？">[删除]</a></span><p  onclick="twReplyto({$vo.id},'{$vv.name}',this)"><span>{$vv.name}：</span>{$vv.content|iSsmilies}<span class="right"><time datetime="{$vv.date|smartDate}" itemprop="datePublished" pubdate>{$vv.date|smartDate}</time>&nbsp;</span>&nbsp;</p>
+							{/volist}
+                    </div>
+				 {/notempty}
+				 
+                    </div>
+					<div id="respond-{$vo.id}" class="comment-respond" style="display:none" >			
+<form action="{:url('Twitter/reply')}" method="post"   id="commentform" class="js-ajax-form-{$vo.id}">
+<p class="comment-form-author"><label for="name" id="toreply-{$vo.id}">评论 <span class="required">*</span></label> <a rel="nofollow" class="cancel-comment-reply-link" href="javascript:void(0);" onclick="noReply({$vo.id},this)">[ 取消回复 ]</a> 
+<p class="comment-form-comment">
+<textarea id="content" name="content" cols="2" rows="2" maxlength="65525" required="required" placeholder="( • ̀ω•́ )既然来了就留个言喔！" nkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13)
+{document.getElementById('submit').click();return false};" class="form-control"></textarea></p>
+<p class="form-submit"><input name="submit" type="button" id="submit" class="btn btn-dark js-ajax-reply" data-tid="{$vo.id}" value="发表评论"> 
+<input type="hidden" name="tid" value="" id="twtid-{$vo.id}">
+<input type="hidden" name="poster" id="poster-{$vo.id}" value="">
+</p>			
+</form>
+</div>
+                </div>
+            </li>
+			<hr>
+			{/foreach}
+			{/empty}            
+          </ul>
+		
+          {notempty name="list"}
+				<div class="pagination text-center">{$list->render()}</div>
+		  {/notempty}
+       </div>
+		  </div>
+      </div>
+    </div>
+ </div>
+</div>
+</div>
+<script type="text/javascript" src="__THEMES__/preview/preview.js"></script>
+<link rel="stylesheet" type="text/css" href="__THEMES__/preview/preview.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="__THEMES__/css/tw.min.css" media="screen" />
+<script type="text/javascript" src="__THEMES__/plupload/plupload.full.min.js"></script>
+<script type="text/javascript">
+			var preview = new Preview({imgWrap: 'list' });
+			var upload_total = 10;//最多上传数量
+            var uploader = new plupload.Uploader({
+                runtimes: 'gears,html5,html4,silverlight,flash', //上传插件初始化选用那种方式的优先级顺序
+                        browse_button: ['twimg'], // 上传按钮
+                        url: "{:url('Twitter/upload')}", //远程上传地址
+                        flash_swf_url: '__THEMES__/plupload/Moxie.swf', //flash文件地址
+                        silverlight_xap_url: '__THEMES__/plupload/Moxie.xap', //silverlight文件地址
+                        filters: {
+                            max_file_size: "{:config('config.allow_upload_pic_size')}mb", //最大上传文件大小（格式100b, 10kb, 10mb, 1gb）
+                            mime_types: [//允许文件上传类型
+                                {title: "files", extensions: "jpg,png,gif,jpeg"}
+                            ]
+                        },
+                        multi_selection: true, //true:ctrl多文件上传, false 单文件上传
+                        init: {
+                            FilesAdded: function(up, files) { //文件上传前
+                                var length_has_upload = $("#ul_pics").children("li").length;
+                                if (files.length >= upload_total) { //超过上传总数量则隐藏
+                                    $("#twimg").hide();
+                                }
+                                var li = '';
+                                plupload.each(files, function(file) { //遍历文件
+                                    if (length_has_upload <= upload_total) {
+                                        li += "<li class='li_upload' id='" + file['id'] + "'><div class='progress'><span class='bar'></span><span class='percent'>0%</span></div></li>";
+                                    }
+                                    length_has_upload++;
+                                });
+                                $("#ul_pics").prepend(li);
+                                uploader.start();
+                            },
+                            UploadProgress: function(up, file) { //上传中，显示进度条
+                                var percent = file.percent;
+                                $("#" + file.id).find('.bar').css({"width": percent + "%"});
+                                $("#" + file.id).find(".percent").text(percent + "%");
+                            },
+                            FileUploaded: function(up, file, info) { //文件上传成功的时候触发
+								var parent=document.getElementById("ul_pics"), child=document.getElementById("remove");
+								//var inputParent = obj.parentNode;//获取input的父对象
+								if(child !=null){
+								parent.removeChild(child);
+								}
+                                showPhotoUploadBox($('#twimg'));
+                                var uploaded_length = $("#ul_pics").children("li").length;
+                                if (uploaded_length <= upload_total) {
+                                    var data = eval("(" + info.response + ")");//解析返回的json数据
+                                    $("#" + file.id).html("<input type='hidden' name='img[]' value='" + data.data[0] + "'/>\n\<img class='img_common' src='" + data.data[0] + "'/><span class='picbg'></span><a class='pic_close' onclick=delPic('" + data.data[0] + "','" + file.id + "')></a>");
+                                }
+                                showUploadBtn();
+                            },
+                            Error: function(up, err) { //上传出错的时候触发
+								layer.msg(err.message, {
+								icon: 'cry',
+								time: 1500,
+								});
+                            }
+                        }
+                    });
+                    uploader.init();
+
+                    function delPic(pic, file_id) { //删除图片 参数1图片路径  参数2 随机数
+                        $.post("{:url('Twitter/clear')}", {pic: pic}, function(data) {
+                            $("#" + file_id).remove();
+                            showUploadBtn();
+                        })
+                    }
+                    function showUploadBtn() { //是否显示上传按钮
+                        var uploaded_length = $("#ul_pics").children("li").length;
+                        if (uploaded_length >= upload_total) {
+                            $("#twimg").hide();
+                        } else {
+                            $("#twimg").show();
+                        }
+                    }
+                    function showPhotoUploadBox(obj) { //显示上传弹出层
+                        $("#photo_upload_box_outside").show()
+                    }
+                    function photo_upload_close() {
+						$("#photo_upload_box_outside").hide()
+                    }
+				$(".box").keyup(function(){
+						var t=$(this).val();
+						var n = 140 - t.length;
+					if (n>=0){
+						$(".msg").html("你还可以输入"+n+"字");
+					}else {
+						$(".msg").html("<h4 style=\"margin-left: 14px;color:#FF0000\">已超出"+Math.abs(n)+"字</h4>");
+					}
+				});		
+				$("#clear").click(function (){
+					$(".box").val('');
+				});
+				//表情
+				$(function() {
+					$('.OwO-logo').on('click', function() {
+					//OwO_add();
+					$('.OwO').toggleClass('OwO-open');
+					});
+				});
+				$("body").click(function (e) {
+					if (!$(e.target).closest(".OwO-body,.OwO-logo").length) {
+					$('.OwO').removeClass('OwO-open');
+					}
+				});
+			
+
+
+
+
+	document.addEventListener('DOMContentLoaded', function(){
+   var aluContainer = document.querySelector('.comment-smilies');
+    if ( !aluContainer ) return;
+    aluContainer.addEventListener('click',function(e){
+    var myField,
+        _self = e.target.dataset.smilies ? e.target : e.target.parentNode;
+        if ( typeof _self.dataset.smilies == 'undefined' ) return;
+        var tag = ' ' + _self.dataset.smilies + ' ';
+        if (document.getElementById('content') && document.getElementById('content').type == 'textarea') {
+            myField = document.getElementById('content')
+        } else {
+            return false
+        }
+        if (document.selection) {
+            myField.focus();
+            sel = document.selection.createRange();
+            sel.text = tag;
+            myField.focus()
+        } else if (myField.selectionStart || myField.selectionStart == '0') {
+            var startPos = myField.selectionStart;
+            var endPos = myField.selectionEnd;
+            var cursorPos = endPos;
+            myField.value = myField.value.substring(0, startPos) + tag + myField.value.substring(endPos, myField.value.length);
+            cursorPos += tag.length;
+            myField.focus();
+            myField.selectionStart = cursorPos;
+            myField.selectionEnd = cursorPos
+        } else {
+            myField.value += tag;
+            myField.focus()
+        }
+    });
+ });
+
+
+
+
+
+
+
+			
+			$(".js-ajax-reply").click(function() {
+		var $btn = $(".js-ajax-reply");
+		var id = $(this).data("tid");
+        var $form = $(".js-ajax-form-"+id);
+		var formObject=$form.serializeObject();
+        $.ajax({
+            url: $btn.data('action') ? $btn.data('action') : $form.attr('action'), 
+            dataType: 'json',
+            data: formObject,
+            type: "post",
+            success: function(data, statusText, xhr) {
+				var text = $btn.text();
+                $btn.removeClass('disabled');
+                if (data.code === 0) {
+                        if(window.parent.frames.length == 1){
+                            parent.layer!==undefined && parent.layer.closeAll('iframe');
+							layer.msg(data.msg);
+							parent.location.reload();
+							layer.close();//关闭弹出层	                            
+                        }else{
+							layer.msg(data.msg);
+							location.href = data.url;
+							layer.close();                           
+                        }           
+                } else{
+  					layer.alert(data.msg);
+                    $btn.removeProp('disabled').removeClass('disabled');
+                }
+            },
+			error: function(xhr, e, statusText) {
+                layer.alert(statusText);
+            },
+            complete: function() {
+                $btn.data("提交中", false);
+            }
+        });
+   });
+function tw_reply(tid){
+	var response = document.getElementById('respond-'+tid);
+	response.style.display = "block";
+	$("#twtid-"+tid).attr("value",tid);
+}
+function twReplyto(tid,poster){
+	var response = document.getElementById('respond-'+tid);
+	var toreply = document.getElementById('toreply-'+tid);
+	$("#twtid-"+tid).attr("value",tid);
+	$("#poster-"+tid).attr("value",poster)
+	toreply.innerHTML="你正要回复："+poster+" 的评论";
+	response.style.display = "block";
+}
+function noReply(tid){
+	var response = document.getElementById('respond-'+tid);	
+	var toreply = document.getElementById('toreply-'+tid);
+	response.style.display = 'none';
+	$("#twtid-"+tid).attr("value",'');
+	$("#poster-"+tid).attr("value",'');
+	toreply.innerHTML="评论";
+}
+</script>
+<!--时间选择插件-->
+<link rel="stylesheet" href="__THEMES__/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<!--日期选择插件-->
+<link rel="stylesheet" href="__THEMES__/js/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<script src="__THEMES__/js/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__THEMES__/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__THEMES__/js/bootstrap-datetimepicker/locale/zh-cn.js"></script>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

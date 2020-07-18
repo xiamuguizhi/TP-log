@@ -1,0 +1,76 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+		<form method="post" class="js-ajax-form" action="term/listorders">
+        <div class="col-lg-12">
+            <div class="card">
+			<div class="card-toolbar clearfix">
+		<div class="toolbar-btn-action">
+            <a class="btn btn-danger m-r-5" href="javascript:void(0)" onclick="clearCache()"><i class="mdi mdi-broom"></i> 清空</a>
+          </div>
+        </div>
+		<div class="card-body">
+		<div class="table-responsive">	
+		<form method="post" class="js-ajax-form">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th align="center">ID</th>
+						<th>用户名</th>
+						<th>访问链接</th>
+						<th width="500">操作数据</th>
+						<th>操作时间</th>
+						<th>操作IP</th>
+					</tr>
+				</thead>
+				<tbody>
+					{empty name="list"}
+					<tr><td colspan="6">没有数据</td></tr>
+					{else/}
+					{volist name="list" id="vo"}
+					<tr>
+						<td align="center">{$vo.id}</td>
+						<td>{$vo.username}</td>
+						<td>{$vo.url}</td>
+						<td><div style="width:500px;word-wrap:break-word;">{$vo.data}</div></td>
+						<td>{$vo.datetime|date='Y-m-d H:i:s',###}</td>
+						<td>{$vo.ip}</td>
+					</tr>
+					{/volist}
+					{/empty}
+				</tbody>
+			</table>
+			{notempty name="list"}<div class="pagination text-center">{$list->render()}</div>{/notempty}
+	</div>
+		</div>
+	</div>
+	</div>	
+	</form>
+	</div>	
+</div>	
+<script src="__THEMES__/js/admin.js"></script>
+<script>
+function clearCache() {	 
+		layer.confirm('确定要清空吗？', {
+			btn: ['确定', '取消'] //按钮
+			}, function(){
+			$.ajax({
+				url : "/backend/admin_log/clear",
+				success : function (data) {
+				var index = layer.load(0, { shade:  [0.1, '#000'] });  // 0.1透明度的白色背景
+				setTimeout(function(){
+				layer.alert(data.msg,function(){
+				location.href = data.url;
+				layer.close();
+				});
+				}, 1500);				
+				layer.close();
+				}
+				}) 
+			}, function(){
+				layer.close();
+			});  
+}
+</script>
+{/block}

@@ -1,0 +1,87 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+	  <form method="post" class="js-ajax-form" action="term/listorders">
+	  <div class="card-toolbar clearfix">
+		<div class="toolbar-btn-action">
+            <a class="btn btn-primary m-r-5" href="{:url('Slide/add_edit')}"><i class="mdi mdi-plus"></i> 新增</a>
+            <button class="btn btn-success btn-small js-ajax-submit" type="submit" data-action="{:url('Slide/check',['ischeck'=>'1'])}" data-subcheck="true"><i class="mdi mdi-check"></i> 显示
+	        </button>
+	        <button class="btn btn-warning btn-small js-ajax-submit" type="submit" data-action="{:url('Slide/check',['ischeck'=>'0'])}" data-subcheck="true"><i class="mdi mdi-block-helper"></i> 禁用</button>
+          </div>
+        </div>
+		<div class="card-body"> 		
+			<div class="table-responsive" >
+            <table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+					<th width="13">
+                   <label class="lyear-checkbox checkbox-primary">
+                    <input type="checkbox" id="check-all"><span></span>
+                   </label>
+                  </th>
+						<th width="50">ID</th>
+						<th width="50">排序</th>
+						<th width="100">图片</th>
+						<th width="150">名称</th>
+						<th width="350">描述</th>
+						<th>链接</th>
+						<th width="55">状态</th>
+						<th width="120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{empty name="list"}
+						<tr><td colspan="5">没有数据</td></tr>
+						{else/}
+					{foreach name="list" item="vo"}
+					<tr>
+					<td>
+						<label class="lyear-checkbox checkbox-primary">
+                                        <input type="checkbox" name="id[]" value="{$vo.id}" class="js-check" data-yid="js-check-y" data-xid="js-check-x" title="ID:{$vo.id}"><span></span>
+                        </label>
+						</td>
+						<td>{$vo.id}</td>
+						<td>
+								<input name='listorders[1]' class="form-input input-order mr5 ajax-text" type='text'
+								size='3' value='{$vo.sort}' data="Slide|sort|id|{$vo.id}" action="{:url('Slide/ajaxdata')}">
+							</td>
+						<td>
+							{empty name="vo.pic"}
+							{else/}
+							<img src="{$vo.pic}" style="height:2%; width:100px" />
+							{/empty}
+						</td>
+						<td>{$vo.name}</td>
+						
+						<td>{$vo.des}</td>
+						<td>{$vo.url}</td>
+						<td style="text-align: center;">
+								{eq name="vo.status" value="1"}
+	                        	<img src="/data/assets/images/btn_enable.png" class="ajax-status" data="Slide|status|id|{$vo.id}" action="{:url('Slide/ajaxdata')}"/>
+	                        	{else/}
+	                        	<img src="/data/assets/images/btn_disable.gif" class="ajax-status" data="Slide|status|id|{$vo.id}" action="{:url('Slide/ajaxdata')}"/>
+	                        	{/eq}
+							</td>
+						<td>
+							<div class="btn-group">
+							<a class="btn btn-xs btn-success" href="{:url('Slide/add_edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+							<a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Slide/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定要删除【{$vo.name}】吗？"><i class="mdi mdi-window-close"></i></a>
+							</div>
+						</td>
+					</tr>
+					{/foreach}
+					{/empty}
+				</tbody>
+			</table>	
+		</form>
+		</div>
+</div>
+	</div>
+</div>
+</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

@@ -1,0 +1,76 @@
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{$site_host}">首页</a>
+                <a href="{:url('sort/index',['cid'=>$list[0]->cateid])}">{$list[0]->ctitle}</a>           
+				<a><cite>正文</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md9 layui-col-lg9">
+            <div class="title-article">
+                <h1>{$list[0]->title}</h1>
+                <div class="title-msg">
+                    <span><i class="layui-icon">&#xe60e;</i> {$list[0]->datetime|smartDate} </span>
+                    <span><i class="layui-icon">&#xe62c;</i> {$list[0]->view}℃</span>
+                    <span><a href="javascript:;" data-id="{$gid}" data-herf="{:url('Posts/favorite')}"  class="dot-good {eq name="has_favorite" value="1 "}done{/eq}">
+					<i class="layui-icon">&#xe6c6;</i><i class="czs-thumbs-up"></i>
+                    <span class="count">{$list[0]->likes}</span>赞
+					</a></span>
+                </div>
+            </div>
+			<div class="text" itemprop="articleBody">
+                <div id="md_content_2" class="md_content" style="min-height: 50px;">
+				{empty name="$list[0]->password"}
+				{$list[0]->content}
+				{else /}
+					{notempty name="$password"}
+					{$list[0]->content}
+					{else/}
+					<form class="layui-form js-ajax-form"  method="post" action="{$site_host}index/check" >
+					<div class="layui-inline input">
+						<input type="hidden" name="id" value="{$list[0]->id}">
+						<input type="password" id="password" name="password" class="layui-input"  placeholder="请输入口令查看内容" />
+					</div>
+					<div class="layui-inline">
+						<button class="layui-btn layui-btn-sm layui-btn-primary js-ajax-button" type="button">确定</button>
+					</div>
+					</form>
+					{/notempty}
+				{/empty}
+				</div>            
+			</div>
+            <div class="tags-text">                
+				{notempty name="tags"}
+					<i class="layui-icon">&#xe66e;</i> 标签: 
+					{volist name='tags' id="vo" }<a href="{:url('tag/index',['tid'=>$vo.tagname])}">{$vo.tagname}</a>{/volist}
+				{else /}
+				<i class="layui-icon">&#xe66e;</i> 标签: none
+				{/notempty}
+			</div>
+            <div class="copy-text">
+                <div>
+                    <p>非特殊说明，本博所有文章均为博主原创。</p>
+                    <p class="hidden-xs">如若转载，请注明出处：<a href="{:url('Posts/show',['alias'=>$list[0]->alias])}">{:$_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]}</a> <?php logurl($_SERVER["REQUEST_SCHEME"].'://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);?></p>
+                </div>
+            </div>
+			
+            <div class="page-text">
+				{notempty name="listPre"}
+				<div>
+				<span class="layui-badge layui-bg-gray">上一篇</span>
+				<a href="{:url('Posts/show',['alias'=>$listPre[0]->alias])}" title="{$listPre[0]->title}">{$listPre[0]->title}</a>
+				</div>
+				{/notempty}
+				{notempty name="listNext"}
+				<div>
+				<span class="layui-badge layui-bg-gray">下一篇</span>
+				<a href="{:url('Posts/show',['alias'=>$listNext[0]->alias])}"  title="{$listNext[0]->title}">{$listNext[0]->title}</a> 
+				</div>
+				{/notempty}
+            </div>
+	 	
+	{include file="public/comments"/}
+	</div>	
+	{include file="public/sidebar"/}	
+ </div>

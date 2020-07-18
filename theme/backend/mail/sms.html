@@ -1,0 +1,69 @@
+{extend name="base"}
+{block name="content"}
+		<div class="container-fluid p-t-15"> 
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <ul class="nav nav-tabs page-tabs">
+		<li ><a href="{:url('mail/index')}">邮件配置</a></li>
+			<li class="active"><a href="{:url('sms/index')}" >模板管理</a></li>
+		</ul>
+
+					
+
+				
+				
+				
+				<div class="card-body">
+				<div class="toolbar-btn-action tooltop">
+            <a class="btn btn-primary m-r-5" href="{:url('mail/add_edit')}"><i class="mdi mdi-plus"></i> 添加模板</a>
+						</div>
+				 <div class="table-responsive" >
+				<table class="table table-hover table-bordered table-list">
+				<thead>
+                    <tr>
+                        <th width="50">编号</th>
+                        <th width="100">应用场景</th>
+                        <th>邮件主题</th>
+                        <th>发送邮件的内容</th>
+                        <th width="120">修改时间</th>
+                        <th width="120">管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {volist name="templete" id="vo" empty="<tr><td colspan='6'>没有数据</td></tr>"}
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>
+                            {volist name="send_scene" id="scene"}
+                            {eq name="vo.send_data['send_scene']" value="$key"}{$scene}{/eq}
+                            {/volist}
+                        </td>
+                        <td>{$vo.send_data['subject']}</td>
+                        <td>{$vo.send_data['tpl_content']}</td>
+                        <td>
+                        	{$vo.datetime|date='Y-m-d',###}
+                        </td>
+                        <td>
+						<div class="btn-group">
+                      <a class="btn btn-xs btn-success" href="{:url('mail/add_edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                      <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('mail/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i></a>
+                    </div>
+                           
+                        </td>
+                    </tr>
+                    {/volist}
+                </tbody>
+            </table>
+			
+			<div class="box-footer clearfix text-center">
+        {$templete->render()}
+    </div>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

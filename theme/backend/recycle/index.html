@@ -1,0 +1,86 @@
+{extend name="base"}
+{block name="content"}
+<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('Recycle/index')}">回收站管理</a></li>
+		</ul>
+		<form class="well form-search" method="get" action="">
+			<input type="hidden" name="act" value="search" />
+			分类：
+			<select name="cateid" class="selector">
+				<option value="0">全部</option>
+				{$categorys|default=""} 
+			</select> &nbsp;&nbsp;
+			时间：
+			<input type="text" name="start_time" class="js-datetime date" value="{$search.start_time|default=''}" style="width: 120px;" autocomplete="off">-
+			<input type="text" class="js-datetime date" name="end_time" value="{$search.end_time|default=''}" style="width: 120px;" autocomplete="off"> &nbsp; &nbsp;
+			关键字： 
+			<input type="text" name="keyword" style="width: 200px;" value="{$search.keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索">
+			<a class="btn btn-danger" href="{:url('Recycle/index')}">清空</a>
+		</form>
+		
+		<form method="post" class="js-ajax-form" action="term/listorders">
+			<div class="table-actions">
+	            <button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Recycle/restore')}" data-subcheck="true">批量还原
+	            </button>
+	            <button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('Recycle/destory')}" data-subcheck="true" data-msg="您确定删除吗？">批量删除</button>
+	        </div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15">
+							<label>
+								<input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+							</label>
+						</th>
+						<th width="10">ID</th>
+						<th>文章标题</th>
+						<th width="60">所属分类</th>
+						<th>浏览量/评论</th>
+						<th>作者</th>
+						<th>发布时间</th>
+						<th width="40">状态</th>
+						<th width="60">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{empty name="list"}
+					<td colspan="11">没有数据</td>
+					{else/}
+					{foreach name="list" item="vo"}
+					<tr>
+						<td>
+							<input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="id[]" value="{$vo.id}" title="ID:{$vo.id}">
+						</td>
+						<td>{$vo.id}</td>
+						<td>{$vo.title}{notempty name="$vo.short_link"} (<span class="red">{$vo.short_link}</span>){/notempty}</td>
+						<td>{$vo.ctitle}</td>
+						<td>{$vo.view}</td>
+						<td>{$vo.author}</td>
+						<td>{$vo.datetime|date="Y-m-d H:i:s",###}</td>
+						<td>
+							{if condition="$vo.hide eq 'n'"}已审核<br/>{else/}未审核<br/>{/if}
+							{if condition="$vo.istop eq 1"}置顶<br/>{/if}
+							{if condition="$vo.isrecommend eq 1"}推荐{/if}
+						</td>
+						<td>
+							<a href="{:url('Recycle/restore',['id'=>$vo['id']])}" class="js-ajax-delete">还原</a> |
+							<a href="{:url('Recycle/destory',['id'=>$vo['id']])}" class="js-ajax-delete">删除</a>
+						</td>
+					</tr>
+					{/foreach}
+					{/empty}
+				</tbody>
+			</table>
+			{notempty name="list"}
+				<div class="pagination text-center">{$list->render()}</div>
+			{/notempty}
+		</form>
+	</div>
+<script src="__THEMES__/js/common.js"></script>
+
+<script type="text/javascript">
+	$(".selector").val("{$search.cateid|default=0}");
+</script>
+{/block}

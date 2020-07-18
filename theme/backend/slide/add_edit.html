@@ -1,0 +1,143 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+					<form action="" method="post" class="row js-ajax-form">
+					<div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary js-ajax-button" target-form="add-form">确 定</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                  </div>
+					{notempty name="list"}
+					<input type="hidden" name="id" value="{$list[0]->id}"/>
+					{/notempty}
+				<div class="form-group col-md-12">
+					<label class="control-label">分类</label>
+						<select name="cid"  class="form-control">
+							{foreach name="categorys" id="vo"}
+							<option value="{$vo.id}" {notempty name="list"}{eq name="list[0]->cid" value="$vo.id"}selected="selected"{/eq}{/notempty}>{$vo.name}</option>
+							{/foreach}
+						</select>
+				</div>
+				<div class="form-group col-md-12">
+					<label class="control-label">名称</label>
+						<input type="text" name="name" value="{$list[0]->name|default=''}"  class="form-control">
+				</div>
+				<div class="form-group col-md-12">
+					<label class="control-label">链接</label>
+						<input type="text" name="url" value="{$list[0]->url|default=''}"  class="form-control">
+				</div>
+				<div class="form-group col-md-12">
+					<label for="url">缩略图</label>
+					<div class="input-group" >
+					<input type="text" class="form-control"  id="url" value="{$list[0]->pic|default=''}" name="pic" readonly="readonly" >
+					<div class="input-group-btn" >
+					<a  class="btn btn-danger js-delete" href="javascript:" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？"><span class="mdi mdi-window-close"></span></a>
+					<button class="btn btn-default" type="button" id="update">上传图片</button> 
+					</div>
+					<label  id="uploadButton"></label>			 
+					</div>
+					{empty name="list"}
+						<img src="{$list[0]->pic|default=''}" style="width:50px;height:50px; display:none;" id="show_thumb"/>
+						{else}
+						{notempty name="list[0]->pic"}
+						<img src="{$list[0]->pic}" style="width:50px;height:50px;" id="show_thumb"/>
+						{else/}
+						<img src="{$list[0]->pic|default=''}" style="width:50px;height:50px; display:none;" id="show_thumb"/>
+						{/notempty}
+						{/empty}
+					</div>
+				<div class="form-group col-md-12">
+					<label class="control-label">描述</label>
+						<textarea name="des" rows="5" cols="57"  class="form-control">{$list[0]->des|default=''}</textarea>
+				</div>
+				<div class="form-group col-md-12">
+                    <label for="ischeck">是否显示</label>
+                    <div class="clearfix">
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="status" value="1" {notempty name="list"}{eq name="list[0]->status" value="1"}checked{/eq}{else/}checked{/notempty}><span>显示</span>
+                      </label>
+                      <label class="lyear-radio radio-inline radio-primary">
+                        <input type="radio" name="status" value="0" {notempty name="list"}{eq name="list[0]->status" value="0"}checked{/eq}{/notempty}><span>禁用</span>
+                      </label>
+                    </div>
+					</div>
+			<div class="form-group col-md-12">
+				<button class="btn btn-primary js-ajax-button" type="button">确定</button>
+				<a class="btn btn-default" href="javascript:history.back(-1);">返回</a>
+			</div>
+		</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__THEMES__/kindeditor/kindeditor-min.js"></script>
+		<link href="__THEMES__/kindeditor/themes/default/default.css" rel="stylesheet"/>
+		<style>
+.ke-button-common {
+    display: none;
+}
+.ke-inline-block {
+    display:none;
+    vertical-align: middle;
+    zoom: 1;
+    *: ;
+    display: inline;
+}
+.article-area .card-header {
+    width: 100%;
+    margin: 0;
+    border-bottom: 1px solid rgba(77,82,89,0.05);
+}
+</style>
+<script>
+$(function(){
+     $("#update").click(function(){
+      $("input[type='file']").trigger('click');
+     });
+	$(".js-delete").click(function(){
+	   var imgpath = $('#show_thumb').attr('src');
+	   console.log(imgpath);
+	   $.ajax({
+		url : "{:url('Slide/delpic')}",
+		data: {pic:imgpath}, 
+		success : function (data) {
+		   document.getElementById("update").disabled=false;
+		   $('#url').attr('value',"");
+		   $('#show_thumb').hide();
+		   return false;
+		}
+	})       
+	 });	
+});
+var editor;
+			KindEditor.ready(function(K) {
+				var uploadbutton = K.uploadbutton({
+					button : K('#uploadButton')[0],
+					fieldName : 'imgFile',
+					url : "{:url('slide/upload')}",
+					afterUpload : function(data) {
+						if (data.code === 0) {
+							var url = K.formatUrl(data.data[0], 'absolute');
+							K('#url').val(url);
+							$('#show_thumb').attr('src',url).show();
+						} else {
+							alert(data.msg);
+						}
+					},
+					afterError : function(str) {
+						alert('错误信息已打印到控制台');
+						console.log(str);
+					}
+					});
+					uploadbutton.fileBox.change(function(e) {
+					uploadbutton.submit();
+				});
+			});
+		</script>
+	<script src="__THEMES__/js/admin.js"></script>
+
+{/block}

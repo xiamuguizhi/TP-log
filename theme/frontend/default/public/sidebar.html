@@ -1,0 +1,257 @@
+<div class="sidebar layui-col-md3 layui-col-lg3">
+
+	
+	
+	{eq name=':request()->controller()' value='Posts'}
+	
+	<div class="style user-item">
+		<div class="bg_xx"><div class="bg"></div></div>
+	      <div class="user-bg"></div>
+		  <a class="user-name" href="{:url('index/index',['uid'=>$list[0]->author])}">{$list[0]->nickname}</a>
+		  <img alt="" src="{$list[0]->email|getGravatar}" class="user-avatar" height="60" width="60">
+	      <p class="user_des">{empty name="$list[0]->signature"}这家伙很赖哈，啥也没留下 {else/}{$list[0]->signature}{/empty}​​​​</p>
+	      <div class="user_info">
+		    <li class="ptnum">{:Core::loadModel("Blog","frontend","logic")->getStatistics(["channel"=>'blog',"hide"=>'n',"author"=>$list[0]->author])}<span>文章</span></li>
+		    <li class="frinum">{:Core::loadModel("Comment","frontend","logic")->getStatistics(['display'=>1,"mail"=>$list[0]->email])}<span>评论</span></li>
+		    <li class="vitnum">{:Core::loadModel("Twitter","frontend","logic")->getStatistics(["author"=>$list[0]->author])}<span>微语</span></li>
+	      </div>
+        </div>
+	 
+	 <div class="component layui-hide-xs">
+        <form class="layui-form" id="search" method="post" action="{$site_host}" role="search">
+            <div class="layui-inline input">
+				<input type="hidden" name="act" value="search">
+                <input type="text" id="s" name="keyword" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+        </form>
+    </div>  
+	
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe63c;</i> 最新文章</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>"blog","hide"=>"n","author"=>$list[0]->author],"limit"=>5,"order"=>"datetime DESC"])' id="vo"}
+			<section class="hot-box-item">
+                <img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{empty name='vo.thumb'}__THEMES__/img/00.png{else/}{$vo.thumb}{/empty}">
+                <a href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}">
+                    <h3>{$vo.title}</h3>
+                </a>
+                <p><i class="layui-icon">&#xe62c;</i> {$vo.view}℃</p>
+            </section>
+			{/volist}
+        </ul>
+    </div> 
+	
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe756;</i> 热门文章</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>"blog","hide"=>"n"],"limit"=>5,"order"=>"view DESC"])' id="vo"}
+			<section class="hot-box-item">
+                <img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{empty name='vo.thumb'}__THEMES__/img/00.png{else/}{$vo.thumb}{/empty}">
+                <a href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}">
+                    <h3>{$vo.title}</h3>
+                </a>
+                <p><i class="layui-icon">&#xe62c;</i> {$vo.view}℃</p>
+            </section>
+			{/volist}
+        </ul>
+    </div> 
+	
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe63a;</i> 最新回复</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Comment/getBlogCommentsList",["limit"=>5,"where"=>["display"=>["eq",1]]])' id="com"}
+			<section class="box-comments">
+                <div class="comments-left">   
+					{if condition="$com.channel eq 'blog'"}
+					<a href="{:url('posts/show',['alias'=>$com.alias])}#comment-{$com.id}">
+					<img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{$com.mail|getGravatar}" height="42" width="42">
+					</a>			
+					{else /} 
+					<a href="{:url('pages/show',['alias'=>$com.alias])}#comment-{$com.id}">
+					<img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{$com.mail|getGravatar}" height="42" width="42">
+					</a>			
+					{/if}
+                </div>
+                <div class="comments-right">
+                    <span>{$com.poster}</span>
+                    <small>{$com.date|smartDate}</small>
+                    <div class="comments-nowrap">{$com.comment|iSsmilies}</div>
+                </div>
+            </section>
+			{/volist}
+        </ul>
+    </div> 
+	
+	{/eq}
+	
+	
+	{eq name=':request()->controller()' value='Index'}
+	<div class="component layui-hide-xs">
+        <form class="layui-form" id="search" method="post" action="{$site_host}" role="search">
+            <div class="layui-inline input">
+				<input type="hidden" name="act" value="search">
+                <input type="text" id="s" name="keyword" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+            </div>
+            <div class="layui-inline">
+                <button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe615;</i></button>
+            </div>
+        </form>
+    </div>  
+	<div class="blog-info">
+       <h3 class="title-sidebar"><i class="layui-icon">&#xe702;</i> 博客信息</h3>
+        <div class="info-box">
+            <ul>
+                <li>
+                    <a href="javascript:;">
+                        <i class="ri-fire-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe60e;</i> 建站日期</span>
+                        <span class="info-number">{:Core::loadAction("Setting/getSetting",['column'=>"site_run"])}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="ri-align-right"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe62c;</i> 运行天数</span>
+                        <span class="info-number">{assign name="run_date" value=':Core::loadAction("Setting/getSetting",["column"=>"site_run"])'}{$run_date|runTime} 天</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="ri-file-4-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe60a;</i> 文章数量</span>
+                        <span class="info-number">{:Core::loadModel("Blog","frontend","logic")->getStatistics(["channel"=>'blog',"hide"=>'n'])} 篇</span>
+                    </a>
+                </li>
+				<li>
+                    <a href="javascript:;">
+                        <i class="ri-file-4-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe688;</i> 微语总数</span>
+                        <span class="info-number">{:Core::loadModel("Twitter","frontend","logic")->getStatistics()} 条</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="ri-file-4-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe66e;</i> 标签数量</span>
+                        <span class="info-number">{:Core::loadModel("Tag","frontend","logic")->getStatistics()} 个</span>
+                    </a>
+                </li>
+				<li>
+                    <a href="javascript:;">
+                        <i class="ri-file-4-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe63a;</i> 评论总数</span>
+                        <span class="info-number">{:Core::loadModel("Comment","frontend","logic")->getStatistics(['display'=>1])} 条</span>
+                    </a>
+                </li>				
+                <li>
+                    <a href="javascript:;">
+                        <i class="ri-discuss-line"></i>
+                        <span class="info-text"><i class="layui-icon">&#xe64c;</i> 链接数量</span>
+                        <span class="info-number">{:Core::loadModel("Link","frontend","logic")->getStatistics(['hide'=>1])} 个</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe705;</i> 分类</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name="category" id="vo"}
+                <li class="layui-col-md12 layui-col-xs6"><a href="{:url('sort/index',['cid'=>$vo.id])}"><i class="layui-icon">&#xe63c;</i> {$vo.title}<span class="layui-badge layui-bg-gray">{$vo.num}</span></a></li>
+			{/volist}
+        </ul>
+    </div>    	
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe756;</i> 热门文章</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>1,"channel"=>"blog","hide"=>"n"],"limit"=>5,"order"=>"view DESC"])' id="vo"}
+			<section class="hot-box-item">
+                <img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{empty name='vo.thumb'}__THEMES__/img/00.png{else/}{$vo.thumb}{/empty}">
+                <a href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}">
+                    <h3>{$vo.title}</h3>
+                </a>
+                <p><i class="layui-icon">&#xe62c;</i> {$vo.view}℃</p>
+            </section>
+			{/volist}
+        </ul>
+    </div> 
+	
+	
+		<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe63a;</i> 最新回复</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Comment/getBlogCommentsList",["limit"=>5,"where"=>["display"=>["eq",1]]])' id="com"}
+			<section class="box-comments">
+                <div class="comments-left">   
+					{if condition="$com.channel eq 'blog'"}
+					<a href="{:url('posts/show',['alias'=>$com.alias])}#comment-{$com.id}">
+					<img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{$com.mail|getGravatar}" height="42" width="42">
+					</a>			
+					{else /} 
+					<a href="{:url('pages/show',['alias'=>$com.alias])}#comment-{$com.id}">
+					<img class="lazy"  src="__THEMES__/img/loading.gif" data-src="{$com.mail|getGravatar}" height="42" width="42">
+					</a>			
+					{/if}
+                </div>
+                <div class="comments-right">
+                    <span>{$com.poster}</span>
+                    <small>{$com.date|smartDate}</small>
+                    <div class="comments-nowrap">{$com.comment|iSsmilies}</div>
+                </div>
+            </section>
+			{/volist}
+        </ul>
+    </div> 
+	
+	<div class="column">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe637;</i> 归档</h3>
+        <ul class="layui-row layui-col-space5">
+			{volist name=':Core::loadAction("Blog/record",[["where"=>["hide"=>"n","channel"=>"blog"],"order"=>["datetime DESC"]]])' id="vo"}
+			<li><i class="layui-icon">&#xe60e;</i>  <a href="{:url('index/index',['record'=>$vo.datetime])}" title="{$vo.lognum}篇">{$vo.record}<span class="layui-badge layui-bg-gray">({$vo.lognum}篇)</span></a></li>
+			{/volist}
+        </ul>
+    </div> 
+	
+	
+
+
+	<div class="dynamic">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe60c;</i>博主动态 ~ </h3>
+        <ul>
+		{volist name=':Core::loadAction("Twitter/getObject",[
+                "order"     =>"date DESC", 
+                "limit"  =>5,
+				])' id="vo"}			
+            <li><span class="layui-badge-dot layui-bg-gray"></span><p>{$vo.content|iSsmilies}<small>{$vo.date|smartDate}</small></p></li>
+		{/volist}
+        </ul>
+    </div>    
+	<div class="tags">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe66e;</i>标签云</h3>
+        <div>
+			{volist name=':Core::loadAction("Tag/getTagList",[["where"=>[],"orderRaw"=>"rand()","paginate"=>["rows"=>20]]])' id="vo"}
+            <a href="{:url('tag/index',['tid'=>$vo.tagname])}" title="{$vo.tagname}">{$vo.tagname}</a>
+			{/volist}
+        </div>
+    </div>   
+	<div class="link">
+        <h3 class="title-sidebar"><i class="layui-icon">&#xe64c;</i>友情链接<a style="float: right;color: #666;" href="{$site_host}pages/neighbor.html" title="更多"><i class="layui-icon">&#xe671;</i> </a></h3>
+        <div>
+		{volist name=':Core::loadAction("Link/getFriendLink",[["where"=>["hide"=>1],"orderRaw"=>"rand()","paginate"=>["rows"=>12]]])' id="vo"}
+            <a href="{$vo.siteurl}" title='{$vo.description}' target="_blank">{$vo.sitename}</a>
+		{/volist}
+        </div>
+    </div> 
+  {/eq}
+
+
+	
+	</div>

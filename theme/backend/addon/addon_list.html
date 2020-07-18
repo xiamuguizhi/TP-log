@@ -1,0 +1,91 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+<div class="row">
+<div class="col-lg-12">
+<div class="card">
+ <ul class="nav nav-tabs page-tabs">
+{volist name="listAddonCate" id="vo"}
+<li {eq name="vo.type" value="$type"}class="active"{/eq}><a href="{:url('Addon/addonList',['type'=>$vo.type])}">{$vo.name}</a></li>
+{/volist}
+</ul>
+<div class="col-lg-12">
+<div class="alert alert-danger" role="alert" style=" margin-left: 11px;margin-right: 11px;"> <font class="red">注意：</font>完全卸载将删除该插件相关的所有库结构，请确定你要删除数据结构的情况下可进行此操作，建议操作前备份数据库。完全卸载只有写了该功能的插件可使用。</div>
+</div>
+<div class="box">
+<div class="card-body">                    
+<table  class="table table-bordered table-hover">
+<thead>
+<tr>
+ <th>名称</th>
+<th>标识</th>
+<th>描述</th>
+<th>插件版本</th>
+<th>适用版本</th>
+<th>插件状态</th>
+<th>作者</th>
+<th>操作</th>
+</tr>
+</thead>
+{notempty name='list'}
+<tbody>
+{volist name='list' id='vo'}
+                    <tr>
+                      <td>{$vo.title}</td>
+                      <td>{$vo.name}</td>
+                      <td>{$vo.describe}</td>
+                      <td>{$vo.version}</td>
+                      <td>{$vo.require}</td>
+                      <td>
+                       {eq name='vo.is_install' value='1'}
+                         {eq name="vo.status" value="1"}
+                         <img src="/data/assets/images/btn_enable.png" title="启用" class="ajax-status" data="Addon|status|id|{$vo.id}" action="{:url($vo['name'].'/'.$vo['name'].'/ajaxdata')}"/>
+                         {else/}
+                         <img src="/data/assets/images/btn_disable.gif" title="禁用" class="ajax-status" data="Addon|status|id|{$vo.id}" action="{:url($vo['name'].'/'.$vo['name'].'/ajaxdata')}"/>
+                         {/eq}
+                       {else/}
+                       未安装
+                       {/eq}
+                      </td>
+                      <td>{$vo.author}</td>
+                      <td>
+                          {eq name='vo.is_install' value='1'}
+                              {eq name="vo.config" value="1"}
+                              <a class="btn btn-info confirm ajax-get"  href="{:url($vo['name']."/".$vo['name']."/config")}"><i class="fa fa-remove"></i> 配置 </a>
+                              {/eq}
+                              <div class="btn-group">
+                                <button type="button" class="btn btn-xs btn-warning">卸载</button>
+                                <button type="button" class="btn btn-xs btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a href="{:url('addonUninstall', array('name' => $vo['name']))}" class="ajax-get btn-xs js-post-ajax-dialog-btn" data-msg="您确定要卸载此插件吗？">普通卸载</a></li>
+                                  <li><a href="{:url('addonUninstall', array('name' => $vo['name'],'type'=>'release'))}" class="ajax-get btn-xs js-post-ajax-dialog-btn" data-msg="您确定要完全卸载此插件吗">完全卸载</a></li>
+                                </ul>
+                              </div>
+                              {notempty name="vo.demo_url"}
+                              <a class="btn btn-default ajax-get case-btn"  target="_blank" href="{$vo.demo_url}"><i class="fa fa-binoculars"></i>演示</a>
+                              {/notempty}
+                              <a class="btn-link confirm ajax-get"  href="{:url($vo['name']."/".$vo['name']."/doc")}">使用说明 </a>
+                          {else/}
+                              {notempty name="vo.demo_url"}
+                              <a class="btn  btn-default ajax-get case-btn" target="_blank"  href="{$vo.demo_url}"><i class="fa fa-binoculars"></i>演示</a>
+                              {/notempty}
+                              <a class="btn btn-success btn-xs confirm ajax-get js-ajax-dialog-btn"  href="{:url('addonInstall', array('name' => $vo['name']))}" data-msg="确定要安装此插件吗"><i class="fa fa-refresh"></i> 安 装</a>
+                          {/eq}
+                      </td>
+                    </tr>
+                {/volist}
+            </tbody>
+            {else/}
+            <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+          {/notempty}
+        </table>
+      </div>
+    </div>
+    </div>
+      </div>
+    </div>
+    </div>	
+    <script src="__THEMES__/js/admin.js"></script>
+{/block}

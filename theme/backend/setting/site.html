@@ -1,0 +1,241 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15"> 
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <ul class="nav nav-tabs page-tabs">
+			<li class="active"><a href="#A" data-toggle="tab">基本信息</a></li>
+			<li><a href="#B" data-toggle="tab">网站设置</a></li>
+			<li><a href="#C" data-toggle="tab">SEO设置</a></li>
+			<li><a href="#D" data-toggle="tab">附件设置</a></li>
+		</ul>
+		
+		<form class="row js-ajax-form" action="" method="post">
+			<input type="hidden" name="id" value="{$list.id}"/>
+				<div class="tabbable">
+					<div class="tab-content">
+						<div class="tab-pane active" id="A">
+								<div class="form-group col-md-12">
+									<label class="control-label">建站时间</label>
+										<input type="text" name="options[site_run]"  value="{$list.options.site_run|default=time()}" class="form-control js-datetimepicker date" autocomplete="off" data-side-by-side="true" data-locale="zh-cn" data-format="YYYY-MM-DD">
+								</div>						
+								<div class="form-group col-md-12">
+									<label class="control-label">网站名称</label>
+										<input type="text" name="options[site_name]"  value="{$list.options.site_name|default='TPFrame管理框架'}" class="form-control" >
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">网站域名</label>
+										<input type="url" name="options[site_host]" value="{$list.options.site_host|default='http://127.0.0.1/'}" class="form-control" >
+								</div>		
+								<div class="form-group col-md-12">
+									<label class="control-label">网站简介</label>
+										<textarea name="options[site_des]" rows="5" cols="57" class="form-control" >{$list.options.site_des}</textarea>
+								</div>								
+								<div class="form-group col-md-12">
+									<label class="control-label">备案信息</label>
+										<textarea type="text" name="options[site_icp]"  class="form-control" rows="1" cols="1">{$list.options.site_icp}</textarea>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">站长邮箱</label>
+										<input type="mail" name="options[site_admin_email]" value="{$list.options.site_admin_email|default='510974211@qq.com'}" class="form-control" >
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">统计代码</label>
+										<textarea name="options[site_tongji]" rows="5" cols="57" class="form-control" >{$list.options.site_tongji}</textarea>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">版权信息</label>
+										<textarea name="options[site_copyright]" rows="5" cols="57" class="form-control" >{$list.options.site_copyright}</textarea>
+								</div>
+						</div>
+
+						
+						<div class="tab-pane" id="B">
+								<div class="form-group col-md-12">
+									<label class="control-label">编辑器选择</label>
+									<div class="controls">
+										<select name="configs[editor]" class="form-control">
+											<option value="default" {eq name=":config('config.editor')" value="default"}selected{/eq}>默认</option>											
+											<option value="ueditor" {eq name=":config('config.editor')" value="ueditor"}selected{/eq}>ueditor</option>											
+											<option value="kindeditor" {eq name=":config('config.editor')" value="kindeditor"}selected{/eq}>kindeditor</option>											
+										</select>
+									</div>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">开启静态缓存</label>
+										<select name="configs[HTML_CACHE_ON]" class="form-control">
+											<option value="1" {eq name=":config('config.HTML_CACHE_ON')" value="1"}selected{/eq}>开启</option>
+											<option value="0" {eq name=":config('config.HTML_CACHE_ON')" value="0"}selected{/eq}>关闭</option>
+										</select>
+										<div class="help-block">有点问题不要启用,下次修复</div>	
+								</div>	
+								
+								<div class="form-group col-md-12">
+									<label class="control-label">微语标题</label>
+										<input type="text"  name="options[tw_name]" value="{$list.options.tw_name}" class="form-control" >
+								</div>
+								
+															
+
+								
+							 <div class="form-group col-md-12">
+									<label class="control-label">微语回复</label>
+									<div class="controls">
+										<select name="configs[tw_reply]" class="form-control">
+											<option value="1" {eq name=":config('config.tw_reply')" value="1"}selected{/eq}>开启</option>
+											<option value="0" {eq name=":config('config.tw_reply')" value="0"}selected{/eq}>关闭</option>
+										</select>
+									</div>
+								</div>
+								
+							<div class="form-group col-md-12">
+									<label class="control-label">友情申请通知</label>
+									<div class="controls">
+										<select name="configs[links_push]" class="form-control">
+											<option value="1" {eq name=":config('config.links_push')" value="1"}selected{/eq}>开启</option>
+											<option value="0" {eq name=":config('config.links_push')" value="0"}selected{/eq}>关闭</option>
+										</select>
+									</div>
+								</div>	
+
+									
+								<div class="form-group col-md-12">
+									<label class="control-label">文章分页数量</label>
+									<input type="text"  name="configs[post_num]" value="{empty name=":config('config.post_num')"}15{else/}{:config('config.post_num')}{/empty}" class="form-control" >
+								</div>								
+
+								<div class="form-group col-md-12">
+									<label class="control-label">评论分页数量</label>
+									<input type="text"  name="configs[comment_num]" value="{empty name=":config('config.comment_num')"}15{else/}{:config('config.comment_num')}{/empty}" class="form-control" >
+								</div>
+								
+								<div class="form-group col-md-12">
+									<label class="control-label">微语分页数量</label>
+									<input type="text"  name="configs[tw_num]" value="{empty name=":config('config.tw_num')"}15{else/}{:config('config.tw_num')}{/empty}" class="form-control" >
+								</div>
+
+								<div class="form-group col-md-12">
+									<label class="control-label">开启管理员操作日志：</label>
+										<select name="configs[ADMIN_LOG_SWITCH]" class="form-control">
+											<option value="1" {eq name=":config('config.ADMIN_LOG_SWITCH')" value="1"}selected{/eq}>开启</option>
+											<option value="0" {eq name=":config('config.ADMIN_LOG_SWITCH')" value="0"}selected{/eq}>关闭</option>
+										</select>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">后台登录验证码开启</label>
+										<select name="configs[ADMIN_LOGIN_VERIFY_SWITCH]" class="form-control">
+											<option value="1" {eq name=":config('config.ADMIN_LOGIN_VERIFY_SWITCH')" value="1"}selected{/eq}>开启</option>
+											<option value="0" {eq name=":config('config.ADMIN_LOGIN_VERIFY_SWITCH')" value="0"}selected{/eq}>关闭</option>
+										</select>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">关闭站点</label>
+										<select name="configs[WEB_SITE_CLOSE]" class="form-control">
+											<option value="0" {eq name=":config('config.WEB_SITE_CLOSE')" value="0"}selected{/eq}>关闭</option>
+											<option value="1" {eq name=":config('config.WEB_SITE_CLOSE')" value="1"}selected{/eq}>开启</option>
+										</select>
+										<div class="help-block">站点关闭后其他用户不能访问，仅仅管理员可以正常访问</div>							
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">关闭站点说明</label>
+										<textarea name="configs[WEB_SITE_CLOSE_DES]" class="form-control" >{:config('config.WEB_SITE_CLOSE_DES')}</textarea>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">前台注册功能</label>
+										<select name="configs[WEB_REGISTER_CLOSE]" class="form-control">
+											<option value="0" {eq name=":config('config.WEB_REGISTER_CLOSE')" value="0"}selected{/eq}>开启</option>
+											<option value="1" {eq name=":config('config.WEB_REGISTER_CLOSE')" value="1"}selected{/eq}>关闭</option>
+										</select>
+									<div class="help-block">关闭注册后，前台将不能进行注册</div>	
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">管理员登录IP限制</label>
+										<textarea name="configs[ADMIN_LOGIN_LLIMIT_IP]" class="form-control" >{:config('config.ADMIN_LOGIN_LLIMIT_IP')}</textarea>
+									<div class="help-block">多个用逗号（英文）分隔，如果不配置表示不限制IP访问</div>										
+								</div>
+						</div>
+						
+						<div class="tab-pane" id="C">
+								<div class="form-group col-md-12">
+									<label class="control-label">SEO标题</label>
+										<input type="text" name="configs[site_seo_title]" class="form-control" value="{empty name=":config('config.site_seo_title')"}TPFrame管理框架{else/}{:config('config.site_seo_title')}{/empty}">
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">SEO关键字</label>
+										<input type="text" name="configs[site_seo_keywords]" class="form-control" value="{empty name=":config('config.site_seo_keywords')"}TPFrame,php,管理框架,cms,简约风, simplewind,framework{else/}{:config('config.site_seo_keywords')}{/empty}">
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">SEO描述</label>
+										<textarea name="configs[site_seo_description]" rows="5" cols="57" class="form-control">{empty name=":config('config.site_seo_description')"}TPFrame是简约风网络科技发布的一款用于快速开发的内容管理框架{else/}{:config('config.site_seo_description')}{/empty}</textarea>
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">百度秘钥</label>
+										<input type="text" name="configs[token]" class="form-control" value="{:config('config.token')}">
+										<div class="help-block">在搜索资源平台申请的推送用的准入密钥</div>	
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">是否自动提交</label>
+										<select name="configs[isauto_submit]" class="form-control">
+											<option value="0" {eq name=":config('config.isauto_submit')" value="0"}selected{/eq}>否</option>
+											<option value="1" {eq name=":config('config.isauto_submit')" value="1"}selected{/eq}>是</option>
+										</select>
+									<div class="help-block">动提交将在成功添加文章后自动提交到百度，若文章不须要进一步审核或其它处理，可进行自动提交，否则请关闭</div>	
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">Sitemap更新频率</label>
+											<select name="configs[changefreq]" class="form-control">
+												<option value="always" {eq name=":config('config.changefreq')" value="always"}selected{/eq}>一直更新</option>
+												<option value="hourly" {eq name=":config('config.changefreq')" value="hourly"}selected{/eq}>小时</option>
+												<option value="daily" {eq name=":config('config.changefreq')" value="daily"}selected{/eq}>天</option>
+												<option value="weekly" {eq name=":config('config.changefreq')" value="weekly"}selected{/eq}>周</option>
+												<option value="monthly" {eq name=":config('config.changefreq')" value="monthly"}selected{/eq}>月</option>
+												<option value="yearly" {eq name=":config('config.changefreq')" value="yearly"}selected{/eq} >年</option>
+												<option value="never" {eq name=":config('config.changefreq')" value="never"}selected{/eq}>从不更新</option>
+											</select>
+								</div>
+								
+						</div>						
+						<div class="tab-pane" id="D">
+							<fieldset>
+								<div class="form-group col-md-12">
+									<label class="control-label">允许上传的图片类型</label>
+										<input type="text" name="configs[allow_upload_pic_type]" value="{:config('config.allow_upload_pic_type')}" class="form-control">
+										<div class="help-block">以英文逗号","分隔</div>											
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">允许上传的图片大小（KB）</label>
+										<input type="text" name="configs[allow_upload_pic_size]" value="{:config('config.allow_upload_pic_size')}" class="form-control">
+										<div class="help-block">以KB为单位,默认2M,计算方式 1Mb=1024Kb</div>											
+								</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">图片上传至第三方平台</label>
+										<select name="configs[upload_pic_position]" class="form-control">
+											<option value="local">本地(服务器)</option>
+											<option value="aliyun_oss" {eq name=":config('config.upload_pic_position')" value="aliyun_oss"}selected{/eq}>阿里云OSS</option>
+											<option value="qiniu" {eq name=":config('config.upload_pic_position')" value="qiniu"}selected{/eq}>七牛云存储</option>
+											<option value="upyun" {eq name=":config('config.upload_pic_position')" value="upyun"}selected{/eq}>又拍云存储</option>
+										</select>
+										<div class="help-block">阿里云OSS、七牛云存储须要相关插件支持</div>										
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+<div class="card-body">
+				<div class="form-group col-md-12">
+					<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+				</div>
+	</div>
+		</form>
+
+	</div>
+	<!--时间选择插件-->
+<link rel="stylesheet" href="__THEMES__/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<!--日期选择插件-->
+<link rel="stylesheet" href="__THEMES__/js/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<script src="__THEMES__/js/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="__THEMES__/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="__THEMES__/js/bootstrap-datetimepicker/locale/zh-cn.js"></script>
+		<script src="__THEMES__/js/admin.js"></script>
+{/block}

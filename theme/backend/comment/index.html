@@ -1,0 +1,145 @@
+{extend name="base"}
+{block name="content"}
+		<style>
+			.length_3{width: 180px;} form .input-order{margin-bottom: 0px;padding:3px;width:40px;}
+			.table-actions{margin-top: 5px; margin-bottom: 5px;padding:0px;} .table-list{margin-bottom:
+			0px;}
+			
+			#comment {
+    position: relative;
+    line-height: 1.2em;
+    max-height: 3.6em;
+    /*设置文本为两端对齐*/
+    text-align: justify;
+    overflow: hidden;
+  }
+  
+
+  hr {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+		</style>
+<div class="container-fluid p-t-15">
+  <div class="row">
+  <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-inline searchForm"  method="get" action="#!" role="form">
+					<input type="hidden" name="act" value="search" />
+                        <div class="form-group">
+                            <label for="hide">状态</label>
+                            <select name="hide" id="hide" class="form-control">
+                                <option value="" {if $search.hide === ""}selected{/if}>所有</option>
+                                <option value="1" {if $search.hide === "1"}selected{/if}>已审核</option>
+                                <option value="0" {if $search.hide === "0"}selected{/if}>待审核</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success"  id="search">搜索</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body"> 
+		<form method="post" class="js-ajax-form" action="term/listorders">  
+          <div class="toolbar-btn-action tooltop">
+                <button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/check',['ischeck'=>1])}" data-subcheck="true"><i class="mdi mdi-check"></i> 审核
+	            </button>
+	            <button class="btn btn-warning btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/check',['ischeck'=>0])}" data-subcheck="true"><i class="mdi mdi-block-helper"></i> 取消审核
+	            </button>
+	            <button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/del')}" data-subcheck="true" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i> 删除</button>
+          </div>		
+          <div class="table-responsive" >
+				<table class="table table-hover table-bordered table-list">
+					<thead>
+						<tr>
+						<th width="13">
+                   <label class="lyear-checkbox checkbox-primary">
+                    <input type="checkbox" id="check-all"><span></span>
+                   </label>
+                  </th>
+							<th width="140">评论者</th>
+							<th>文章/内容</th>
+							<th width="130">状态/时间</th>
+							<th width="120">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{empty name="list"}
+						<tr><td colspan="8">没有数据</td></tr>
+						{else/}
+						{volist name="list" id="vo"}
+						<tr>
+						<td>
+						{$vo.id}
+						<hr>
+							<label class="lyear-checkbox checkbox-primary">
+                                        <input type="checkbox" name="id[]" value="{$vo.id}" class="js-check" data-yid="js-check-y" data-xid="js-check-x" title="ID:{$vo.id}"><span></span>
+                        </label>
+						</td>
+							
+							<td>
+								{$vo.poster}
+								<hr>
+								{$vo.ip} <a class="js-ajax-delete" href="{:url('Comment/delIP',['ip'=>$vo['ip']])}" title="删除该IP所有评论" data-toggle="tooltip" data-msg="您确定删除吗？">(X)</a>
+							</td>
+							<td id="comment">
+							     {eq name="vo.channel" value="blog"}
+								<a href="{:url('posts/show',['alias'=>$vo.alias])}" target="_blank">
+									【{$vo.title}】
+								</a>
+								{else /}
+								<a href="{:url('pages/show',['alias'=>$vo.alias])}" target="_blank">
+									【{$vo.title}】
+								</a>
+								{/eq}
+								<hr>
+								{$vo.comment|iSsmilies}
+								
+							</td>
+						
+	
+							<td>
+							{eq name="vo.display" value="1"}
+	                        	<img src="/data/assets/images/btn_enable.png" class="ajax-status" data="Comment|display|id|{$vo.id}" action="{:url('Comment/ajaxdata')}"/>
+	                        	{else/}
+	                        	<img src="/data/assets/images/btn_disable.gif" class="ajax-status" data="Comment|display|id|{$vo.id}" action="{:url('Comment/ajaxdata')}"/>
+	                        	{/eq}
+							<hr>
+								{$vo.date|smartDate}
+							</td>
+				
+							<td>
+							<a class="btn btn-xs btn-purple" href="{:url('Comment/reply',['id'=>$vo['id']])}" title="回复" data-toggle="tooltip"><i class="mdi mdi-comment-alert-outline"></i></a>							
+							<hr>
+							<div class="btn-group">
+							<a class="btn btn-xs btn-success" href="{:url('Comment/edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a><a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Comment/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i></a>
+							
+							</div>
+							
+							</td>
+						</tr>
+						{/volist}
+						{/empty}
+					</tbody>
+					</table>
+					<div class="table-actions">
+	            <button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/check',['ischeck'=>1])}" data-subcheck="true"><i class="mdi mdi-check"></i> 审核
+	            </button>
+	            <button class="btn btn-warning btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/check',['ischeck'=>0])}" data-subcheck="true"><i class="mdi mdi-block-helper"></i> 取消审核
+	            </button>
+	            <button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('Comment/del')}" data-subcheck="true" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i> 删除</button>
+	        </div>
+				
+				{notempty name="list"}
+				<div class="pagination text-center">{$list->render()}</div>
+			{/notempty}
+			</form>
+		</div>
+		
+		<script src="__THEMES__/js/admin.js"></script>
+{/block}

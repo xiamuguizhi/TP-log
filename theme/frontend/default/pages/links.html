@@ -1,0 +1,67 @@
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{$site_host}">首页</a>
+				<a><cite>{$list[0]->title}</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md12 layui-col-lg12">					
+					<div class="title-article">
+						<h1>申请链接</h1>
+					</div>
+					<div class="text" itemprop="articleBody">
+						   <div id="md_content_2" class="md_content" style="min-height: 50px;">								
+								<div id="respond-post" class="respond">
+									{$list[0]->content}
+									<br/>
+										<form method="post" action="{:url('Link/add')}" id="comment-form" role="form" class="js-ajax-form">
+										<div class="layui-form-item layui-row layui-col-space5">
+										<div class="layui-col-md4">
+										<input type="text" name="sitename" id="sitename" class="layui-input" placeholder="* 站点名称"  required />
+										</div>
+										<div class="layui-col-md4">
+										<input type="url" name="siteurl" id="siteurl" lay-verify="url" class="layui-input" placeholder="http://站点主页" required />
+										</div>
+										<div class="layui-col-md4">
+										<input type="url" name="sitepic" id="sitepic" lay-verify="url" class="layui-input" placeholder="站点图标"  required />
+										</div>
+										</div>
+										<div class="layui-form-item">
+										<textarea rows="5" cols="30" name="description" id="description" placeholder="站点描述" class="layui-textarea" required></textarea>
+										</div>
+
+										<div class="layui-inline">
+										<button type="button" class="layui-btn layui-btn-normal js-ajax">提交申请</button>
+										<input type="checkbox" id="saveme"  name="check"  ><label for="comment_mail_notify"> 我不是机器人</label> 
+										</div>
+										</form>
+									</div>
+								<ul class="bilibili-links" id="links">
+								{volist name=':Core::loadAction("Sortlink/getSort",[["where"=>[],"order"=>"taxis asc"]])' id="vo"}
+								<h4>{$vo.name}</h4>
+								{volist name=':Core::loadAction("Link/getFriendLink",[["where"=>["linksortid"=>$vo.id,"hide"=>1],"order"=>"taxis asc"]])' id="vv"}
+								<li class="list-item">
+										<a class="cover" href="{$vv.siteurl}" target="_blank" rel="nofollow" >
+											<img class="lazy" src="__THEMES__/img/loading.gif" data-src="{$vv.sitepic}" alt="{$vv.sitename}" >
+										</a>
+										<div class="content">
+											<span class="title">
+												{$vv.sitename}
+											</span>
+											<p class="desc">{$vv.description}</p>
+											<div class="fans-action">
+												<a class="fans-action-btn" href="{$vv.siteurl}" target="_blank" rel="nofollow">
+												<span class="fans-action-text">访问TA</span>
+												</a>
+											</div>
+										</div>
+									</li>
+								{/volist}
+								{/volist}
+								</ul>
+							</div>
+					</div>
+			</div>
+	</div>					
+</div>					

@@ -1,0 +1,107 @@
+<div class="layui-container">
+<div class="component layui-show-xs-block layui-hide-sm" style="margin: 0px 7.5px;">
+<form class="layui-form" id="search" method="post" action="{$site_host}" role="search">
+<div class="layui-inline input">
+<input type="hidden" name="act" value="search">
+<input type="text" id="s" name="keyword" class="layui-input" required lay-verify="required" placeholder="输入关键字搜索" />
+</div>
+<div class="layui-inline">
+<button class="layui-btn layui-btn-sm layui-btn-primary"><i class="layui-icon">&#xe615;</i></button>
+</div>
+</form>
+</div>
+    <div class="layui-row layui-col-space15 main">
+	<div class="layui-col-md9 layui-col-lg9">
+	{notempty name=':Core::loadAction("Slide/getSlide")'}
+	<div id="focusslide" class="swiper-container">
+        <div class="swiper-wrapper">
+		{volist name=':Core::loadAction("Slide/getSlide")' id="vo"}
+		<div class="swiper-slide">
+		<a target="_blank" href="{$vo.url}" title="{$vo.name}">
+		<img src="{$vo.pic}">
+		</a>
+		</div>
+	    {/volist}
+		</div>
+		<div class="swiper-pagination"></div>
+        <div class="swiper-button-next swiper-button-white"><i class="layui-icon">&#xe602;</i></div>
+        <div class="swiper-button-prev swiper-button-white"><i class="layui-icon">&#xe603;</i></div>
+   </div>
+   {/notempty}
+	
+	
+	
+	
+	
+	{notempty name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>"blog","isrecommend"=>1,"hide"=>"n"]])'}
+	{volist name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>"blog","isrecommend"=>1,"hide"=>"n"],"limit"=>1,"order"=>"datetime DESC"])' id="vo"}
+	<div class="title-article list-card">
+	<h2><span style="color:red">【站长推荐】</span> 
+	<a  href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}<">{$vo.title}</a>
+	</h2>
+	<p class="note">
+	{notempty name="$list.abstract"}
+	{$vo.abstract|StringHelper::msubstr=0,100}	
+	{else/}
+	{$vo.content|StringHelper::msubstr=0,100}		
+	{/notempty}
+	</p>
+	</div>
+	{/volist}
+	{/notempty}
+	
+	
+    
+	<div class="title">
+	<h3>
+	最新发布							
+	</h3>
+	<div class="more">
+	<a href="#">热门标签</a>
+	{volist name=':Core::loadAction("Tag/getTagList",[["where"=>[],"orderRaw"=>"rand()","paginate"=>["rows"=>3]]])' id="vo"}
+    <a href="{:url('tag/index',['tid'=>$vo.tagname])}" title="{$vo.tagname}">{$vo.tagname}</a>
+	{/volist}
+	</div>		
+	</div>
+		{empty name="list"}
+		<div class="post">
+         <h2 class="post-title">没有找到内容</h2>
+       </div>
+		{else/}
+		{volist name="list" id="vo"}
+		<div class="title-article list-card">
+         <div class="list-pic">
+                            <a href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}">
+                                <img class="lazy"  src="__THEMES__/img/loading.gif" data-src='{empty name="vo.thumb"}__THEMES__/img/00.png{else/}{$vo.thumb}{/empty}' alt="{$vo.title}" class="img-full">
+                            </a>
+                        </div>
+                        <a href="{:url('Posts/show',['alias'=>$vo.alias])}" >
+                        <h1>{eq name="$vo.istop" value="1 "}<span style="color:red">[顶置] </span>{/eq}{$vo.title}{if condition="view_news($vo.datetime) eq true"}<sup style="font-size:20px;color:red"><i class="czs-new-l"></i></sup>{/if}</h1>
+                        <p>
+                        {notempty name="$list.abstract"}
+						{$vo.abstract|StringHelper::msubstr=0,100}	
+						{else/}
+						{$vo.content|StringHelper::msubstr=0,100}		
+						{/notempty}
+						</p>
+						</a>
+                    <div class="title-msg">
+                        <span><i class="layui-icon">&#xe66f;</i> <a href="{:url('index/index',['uid'=>$vo.author])}">{$vo.nickname}</a></span>
+                        <span><i class="layui-icon">&#xe705;</i> <a href="{:url('sort/index',['cid'=>$vo.cateid])}">{$vo.ctitle}</a></span>
+                        <span><i class="layui-icon">&#xe60e;</i> {$vo.datetime|smartDate} </span>
+                        <span class="layui-hide-xs"><i class="layui-icon">&#xe62c;</i> {$vo.view}℃</span>
+                        <span class="layui-hide-xs"><i class="layui-icon">&#xe63a;</i> {$vo.comnum}条</span>
+                    </div>
+                </div>
+{/volist}
+{/empty}
+<!-- navigation -->
+{notempty name="list"}
+<nav role="navigation">
+	{$list->render()}
+</nav>
+{/notempty}
+</div>
+{include file="public/sidebar"/}	
+</div>
+</div>

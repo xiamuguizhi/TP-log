@@ -1,0 +1,161 @@
+
+<div class="comment-text layui-form">
+<div id="comments">
+{if condition="$list[0]->iscomment eq 1"}
+<div id="respond-post" class="respond">
+
+<h4 id="response"><i class="layui-icon">&#xe664;</i> 吐槽啦~</h4>
+<br/>
+<form method="post" action="{:url('Comment/add')}" id="comment-form"  class="js-ajax-form" role="form">
+<div class="layui-form-item">
+<p class="comment-smilies">
+<a class="add-smily" data-action="addSmily" data-smilies=":mrgreen:">
+<img alt=":mrgreen:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mrgreen.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":neutral:">
+<img alt=":neutral:" class="wp-smiley" src="/data/assets/images/emoticons/icon_neutral.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":twisted:">
+<img alt=":twisted:" class="wp-smiley" src="/data/assets/images/emoticons/icon_twisted.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":arrow:">
+<img alt=":arrow:" class="wp-smiley" src="/data/assets/images/emoticons/icon_arrow.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":shock:">
+<img alt=":shock:" class="wp-smiley" src="/data/assets/images/emoticons/icon_eek.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":smile:">
+<img alt=":smile:" class="wp-smiley" src="/data/assets/images/emoticons/icon_smile.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":???:"><img alt=":???:" class="wp-smiley" src="/data/assets/images/emoticons/icon_confused.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cool:"><img alt=":cool:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cool.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":evil:"><img alt=":evil:" class="wp-smiley" src="/data/assets/images/emoticons/icon_evil.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":grin:"><img alt=":grin:" class="wp-smiley" src="/data/assets/images/emoticons/icon_biggrin.gif"></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":idea:"><img alt=":idea:" class="wp-smiley" src="/data/assets/images/emoticons/icon_idea.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":oops:"><img alt=":oops:" class="wp-smiley" src="/data/assets/images/emoticons/icon_redface.gif"></a><a class="add-smily" data-action="addSmily" data-smilies=":razz:"><img alt=":razz:" class="wp-smiley" src="/data/assets/images/emoticons/icon_razz.gif"
+></a>
+<a class="add-smily" data-action="addSmily" data-smilies=":roll:"><img alt=":roll:" class="wp-smiley" src="/data/assets/images/emoticons/icon_rolleyes.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":wink:"><img alt=":wink:" class="wp-smiley" src="/data/assets/images/emoticons/icon_wink.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":cry:"><img alt=":cry:" class="wp-smiley" src="/data/assets/images/emoticons/icon_cry.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":eek:">
+<img alt=":eek:" class="wp-smiley" src="/data/assets/images/emoticons/icon_surprised.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":lol:"><img alt=":lol:" class="wp-smiley" src="/data/assets/images/emoticons/icon_lol.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":mad:"><img alt=":mad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_mad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":sad:"><img alt=":sad:" class="wp-smiley" src="/data/assets/images/emoticons/icon_sad.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":!:"><img alt=":!:" class="wp-smiley" src="/data/assets/images/emoticons/icon_exclaim.gif">
+</a>
+<a class="add-smily" data-action="addSmily" data-smilies=":?:"><img alt=":?:" class="wp-smiley" src="/data/assets/images/emoticons/icon_question.gif">
+</a>                    
+</p>
+<textarea rows="5" cols="30" name="comment" id="comment" placeholder="嘿~ 大神，别默默的看了，快来点评一下吧" class="layui-textarea" required></textarea>
+</div>
+{if condition="(empty($Think.session.backend_author_sign.username) neq true)"}
+{assign name="login" value=':Core::loadAction("User/getOneObject",["username"=>"$Think.session.backend_author_sign.username"])'}
+<input type="hidden" name="poster" value="{$login.nickname}">
+<input type="hidden" name="mail"  value='{$login.email}'>
+<input type="hidden" name="url"   	 value='{$login.url}'>
+{else/}
+<div class="layui-form-item layui-row layui-col-space5">
+<div class="layui-col-md4">
+<input type="text" name="poster" id="poster" class="layui-input" placeholder="* 怎么称呼" value='{:Cookie::get("cposter")}' required />
+</div>
+<div class="layui-col-md4">
+<input type="email" name="mail" id="mail" lay-verify="email" class="layui-input" placeholder="* 邮箱(放心~会保密~.~)" value='{:Cookie::get("cmail")}' required />
+</div>
+<div class="layui-col-md4">
+<input type="url" name="url" id="url" lay-verify="url" class="layui-input" placeholder="http://您的主页" value='{:Cookie::get("curl")}' />
+</div>
+</div>
+{/if} 
+<div class="layui-inline">
+<button type="button" class="layui-btn layui-btn-normal js-ajax-button">提交评论</button>
+<button id="cancel-comment-reply-link"  class="layui-btn layui-btn-danger" href="javascript:void(0);" rel="nofollow" style="display:none" onclick="return TpComment.cancelReply();">取消回复</button>
+
+<input type="checkbox" id="saveme"  name="check" {eq name="ccheck" value="1 "}checked{/eq}><label for="comment_mail_notify"> 我不是机器人</label>
+<input type="hidden" name="gid" value="{$gid}" id="gid">
+<input type="hidden" name="pid" value="0" id="pid">
+<input type="hidden" name="author" value="" id="author">
+</div>
+</form>
+</div>
+<br/>
+{/if}
+{notempty name="comments"}
+<h3>已有 {:Core::loadAction("Comment/getCountComments",['where'=>["gid"=>$gid,"display"=>1]],"frontend","logic")} 条评论</h3>
+<br/>
+<div class="pinglun">
+<ol class="comment-list">	
+{foreach  name="comments" id="vo" key="m"}
+			<li>
+			<div class="comment-body" id="comment-{$vo.id}">
+				{volist name=':Core::loadAction("Comment/getObject",["where"=>["mail"=>$vo.mail],"order" =>"date DESC", "limit"  =>1])' id="last"}
+				<div class="comment-user-img"   data-usesr="{$vo.poster}" data-os="{$vo.useragent|getOS}" data-browers="{$vo.useragent|getBR}" data-last="{$last.date|smartDate}">
+				{/volist}
+					<img class="lazy" src="__THEMES__/img/loading.gif" data-src="{$vo.mail|getGravatar}" >
+				</div>
+				<div class="comment-info">
+					<div class="comment-top">
+						<span class="comment-nickname"><a  href="{:Core::loadAction("Setting/getSetting",['column'=>"site_host"])}go.php?url={$vo.url|base64_encode}"  $nofollow target="_blank">{$vo.poster}</a></span>	
+						{if $list[0]->email == $vo.mail}<span class="comment-level">管理员</span>{else/}<span class="comment-level1">游客</span>{/if}						
+						<span class="comment-time">{$vo.date|smartDate}</span>		
+						<span class="right">#{$vo.i}</span>
+					</div>
+					<div class="comment-content">
+						<div class="comment-content-text">
+							{$vo.comment|iSsmilies}
+						</div>
+					</div>
+					<div class="comment-footer">
+						<span class="reply" href="javascript:;" onclick="return TpComment.reply('comment-{$vo.id}',{$vo.id},'{$vo.poster}');">@回复</span>
+						<span class="comment-support pointer {:Core::loadAction("Comment/gethas",["id"=>$vo.id])}" onclick="dot_good({$vo.id},this)" data-id="{$vo.id}" data-herf="{:url('Comment/favorite')}"  id="likes-{$vo.id}" ><i class="czs-thumbs-up-l"></i>点赞&nbsp;<span class="count">{$vo.likes}</span>
+					</div></span>
+				</div>
+			</div>
+			{foreach   name="vo.children" id="v"   key="k"}			
+			<div class="comment-body-sub" id="comment-{$v.id}">
+				{volist name=':Core::loadAction("Comment/getObject",["where"=>["mail"=>$v.mail],"order" =>"date DESC", "limit"  =>1])' id="clast"}
+				<div class="comment-user-img"  data-usesr="{$v.poster}" data-os="{$v.useragent|getOS}" data-browers="{$v.useragent|getBR}" data-last="{$last.date|smartDate}">
+				{/volist}
+					<img class="lazy" src="__THEMES__/img/loading.gif" data-src="{$v.mail|getGravatar}" >
+				</div>
+				<div class="comment-info">
+					<div class="comment-top">
+						<span class="comment-nickname" id="{$v.poster}"><a  href="{:Core::loadAction("Setting/getSetting",['column'=>"site_host"])}go.php?url={$v.url|base64_encode}"  $nofollow target="_blank">{$v.poster}</a></span>
+						{if $list[0]->email == $v.mail}<sup class="comment-level">管理员</sup>{else/}<sup class="comment-level1">游客</sup>{/if}
+						<span class="comment-time">{$v.date|smartDate}</span>						
+						<span class="right">#{$vo.i}-{$vo->k--}</span>
+					</div>
+					<div class="comment-content">
+						<div class="comment-content-text">
+							{$v.comment|iSsmilies}
+						</div>
+					</div>
+					<div class="comment-footer">				
+						<span class="reply" onclick="return TpComment.reply('comment-{$v.id}',{$vo.id},'{$vo.poster}');">@回复</span>
+						<span class="comment-support pointer {:Core::loadAction("Comment/gethas",["id"=>$v.id])}" onclick="dot_good({$v.id},this)" data-id="{$v.id}" data-herf="{:url('Comment/favorite')}"  id="likes-{$v.id}"><i class="czs-thumbs-up-l"></i>点赞&nbsp;<span class="count">{$v.likes}</span></span>
+					</div>
+				</div>
+			</div>			
+			{/foreach}			
+			</li>
+			{/foreach}
+		{notempty name="comments"}
+		  <nav role="navigation">
+		{$comments->render()}
+		</nav>
+	{/notempty}	
+</ol>            
+</div>
+{/notempty}
+</div>
+</div>
+
+

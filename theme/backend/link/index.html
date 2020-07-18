@@ -1,0 +1,118 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-toolbar clearfix">
+          <form class="pull-right search-bar" method="get" action="#!" role="form">
+			<input type="hidden" name="act" value="search" />
+            <div class="input-group">
+			<input type="text" class="form-control" value="{$search.keyword|default=''}" name="keyword" placeholder="请输入关键词">
+              <div class="input-group-btn">
+                <input type="hidden" name="search_field" id="search-field" value="title">
+                <button class="btn btn-danger" href="{:url('cms/link/index')}" id="search-btn">
+                搜索
+                </button>
+              </div>
+              
+            </div>
+          </form>
+		<div class="toolbar-btn-action">
+            <a class="btn btn-primary m-r-5" href="{:url('Link/add_edit')}"><i class="mdi mdi-plus"></i> 新增</a>
+          </div>
+        </div>
+        <div class="card-body"> 
+		<form method="post" class="js-ajax-form" action="term/listorders">  
+          <div class="toolbar-btn-action tooltop">
+            <button class="btn btn-success btn-small js-ajax-submit" type="submit" data-action="{:url('link/check',['ischeck'=>'1'])}" data-subcheck="true"><i class="mdi mdi-check"></i> 通过
+	        </button>
+	        <button class="btn btn-warning btn-small js-ajax-submit" type="submit" data-action="{:url('link/check',['ischeck'=>'0'])}" data-subcheck="true"><i class="mdi mdi-block-helper"></i> 禁用</button>
+			<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('link/del')}" data-subcheck="true" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i> 删除</button>
+          </div>		
+          <div class="table-responsive" >
+            <table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+					<th width="13">
+                   <label class="lyear-checkbox checkbox-primary">
+                    <input type="checkbox" id="check-all"><span></span>
+                   </label>
+                  </th>
+				  <th width="50">排序</th>
+				  <th>链接名称</th>
+				  <th>分类</th>
+				  <th>链接地址</th>
+				  <th>添加时间</th>
+							
+							<th width="55">状态</th>
+							<th width="120">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{empty name="list"}
+						<tr><td colspan="8">没有数据，<a class="btn btn-dark" href="{:url('link/index')}">点击返回</a></td></tr>
+						{else/}
+						{volist name="list" id="vo"}
+						<tr>
+						<td>
+						<label class="lyear-checkbox checkbox-primary">
+                                        <input type="checkbox" name="id[]" value="{$vo.id}" class="js-check" data-yid="js-check-y" data-xid="js-check-x" title="ID:{$vo.id}"><span></span>
+                        </label>
+						</td>
+						<td>
+								<input name='listorders[1]' class="form-input input-order mr5 ajax-text" type='text'
+								size='3' value='{$vo.taxis}' data="Link|taxis|id|{$vo.id}" action="{:url('Link/ajaxdata')}">
+							</td>
+							<td>
+								{$vo.sitename}
+							</td>
+							<td>
+								{$vo.cname}
+							</td>
+							<td>
+								<a href="{$vo.siteurl}" target="_blank">
+									{$vo.siteurl}
+								</a>
+							</td>
+							<td>
+								{$vo.datetime|smartDate}
+							</td>
+
+							<td style="text-align: center;">
+								{eq name="vo.hide" value="1"}
+	                        	<img src="/data/assets/images/btn_enable.png" class="ajax-status" data="Link|hide|id|{$vo.id}" action="{:url('Link/ajaxdata')}"/>
+	                        	{else/}
+	                        	<img src="/data/assets/images/btn_disable.gif" class="ajax-status" data="Link|hide|id|{$vo.id}" action="{:url('Link/ajaxdata')}"/>
+	                        	{/eq}
+							</td>
+							<td>
+                    <div class="btn-group">
+                      <a class="btn btn-xs btn-success" href="{:url('Link/add_edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                      <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Link/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i></a>
+                    </div>
+                  </td>
+							
+						</tr>
+						{/volist}
+						{/empty}
+					</tbody>
+				</table>
+				<div class="toolbar-btn-action">
+            <button class="btn btn-success btn-small js-ajax-submit" type="submit" data-action="{:url('link/check',['ischeck'=>'1'])}" data-subcheck="true"><i class="mdi mdi-check"></i> 通过
+	        </button>
+	        <button class="btn btn-warning btn-small js-ajax-submit" type="submit" data-action="{:url('link/check',['ischeck'=>'0'])}" data-subcheck="true"><i class="mdi mdi-block-helper"></i> 禁用</button>
+			<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:url('link/del')}" data-subcheck="true" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i> 删除</button>
+          </div>
+				{notempty name="list"}
+				<div class="pagination text-center">{$list->render()}</div>
+			{/notempty}			
+		</div>
+		</form>
+</div>
+	</div>
+</div>
+</div>
+</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

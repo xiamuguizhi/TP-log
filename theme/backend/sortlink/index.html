@@ -1,0 +1,55 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-toolbar clearfix">
+		<div class="toolbar-btn-action">
+            <a class="btn btn-primary m-r-5" href="{:url('Sortlink/add_edit')}"><i class="mdi mdi-plus"></i> 新增</a>
+          </div>
+        </div>
+        <div class="card-body"> 
+		<form method="post" class="js-ajax-form" action="term/listorders">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="50">ID</th>
+						<th>分类名称</th>
+						<th>排序</th>
+						<th width="120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{empty name="list"}
+						<tr><td colspan="4">没有创建分类，<a  href="{:url('Sortlink/add_edit')}"><i class="mdi mdi-plus"></i> 现在新增一个</a></td></tr>
+					{else/}
+					{foreach name="list" item="vo"}
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.name}</td>
+						<td>
+								<input name='listorders[1]' class="form-input input-order mr5 ajax-text" type='text'
+								size='3' value='{$vo.taxis}' data="Sortlink|taxis|id|{$vo.id}" action="{:url('Sortlink/ajaxdata')}">
+							</td>
+						<td>
+						<div class="btn-group">
+                      <a class="btn btn-xs btn-success" href="{:url('Sortlink/add_edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+					  {if condition="$vo.id neq 1"}
+                      <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('Sortlink/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？" ><i class="mdi mdi-window-close"></i></a>
+					  {/if}
+                    </div>
+						</td>
+					</tr>
+					{/foreach}
+					{/empty}
+				</tbody>
+			</table>
+		</form>
+	</div>
+	</div>
+</div>
+</div>
+</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

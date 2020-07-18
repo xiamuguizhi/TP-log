@@ -1,0 +1,78 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15"> 
+<form method="post" class="form-horizontal js-ajax-form" action="{:url('Role/add')}">
+{notempty name="list"}<input type="hidden" name="id" value="{$id}" />{/notempty}
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card article-area">
+				<div class="card-body">	                   
+                    <div class="form-group">
+                    <label for="role_name">角色名称</label>
+                    <input type="text" class="form-control" name="role_name" id="role_name" value="{$list[0]->role_name|default=''}" placeholder="请输入名称" />
+                    </div>
+                    <div class="form-group">
+                    <label for="role_describe">角色描述</label>
+					<textarea name="role_describe" rows="5" cols="57" class="form-control">{$list[0]->role_describe|default=''}</textarea>
+					</div>					
+					<div class="form-group">
+                    <button type="button" class="btn btn-primary js-ajax-button">确 定</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+					</div>
+                 </div>
+		</div>
+    </div>
+<div class="col-md-5">
+      <div class="card article-area">
+        <div class="card-body">
+				<div class="form-group">
+					<label class="control-label"></label>
+					<div class="controls checkutil"><label><input type="checkbox" id="checkall"> 全部选中</label><label><input type="checkbox" id="openall"> 全部展开</label></div>
+				</div>
+					<div class="form-group">
+					<label class="control-label">角色选择</label>
+					<div class="controls" id="role_wrap"></div>
+				</div>
+
+            </div>  	
+		</div>
+      </div>	  
+    </div>					
+</div>	
+</form>
+</div>	
+<style type="text/css">
+	.checkutil label{float: left;margin-right: 10px;}
+</style>
+	<link rel="stylesheet" href="__THEMES__/jstree/dist/themes/default/style.min.css" />
+	<script src="__THEMES__/jstree/dist/jstree.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('#role_wrap').jstree({
+			"core":{
+				"themes":{
+					"name" : "default",
+					"dots" : true,
+					"icons" : false
+				},
+				'data' : {
+			        "url" : '{empty name="list"}{:url("menu/role")}{else/}{:url("menu/role",["privs"=>$list[0]["privs"]])}{/empty}',
+			        "dataType" : "json"
+			      }
+			},
+		  	"plugins" : ["checkbox"],
+		});
+		$('#role_wrap').on("changed.jstree", function (e, data) {
+			$("#role").val(data.selected.join(","));
+		});
+		$("#checkall").click(function(){
+			$("#role_wrap").jstree($(this).prop("checked") ? "check_all" : "uncheck_all");
+		});
+		$("#openall").click(function(){
+			$("#role_wrap").jstree($(this).prop("checked") ? "open_all" : "close_all");
+		});
+	});
+	</script>
+	
+	<script src="__THEMES__/js/admin.js"></script>
+{/block}

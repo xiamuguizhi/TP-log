@@ -1,0 +1,28 @@
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{$site_host}">首页</a>
+				<a><cite>{$list[0]->title}</cite></a>
+            </span>
+        </div>	
+		<div class="layui-col-md12 layui-col-lg12">
+					<div class="title-article">
+						<h1>{$list[0]->title}</h1>
+						<div class="title-msg">
+							<span><i class="layui-icon">&#xe60e;</i> {$list[0]->datetime|smartDate} </span>
+							<span><i class="layui-icon">&#xe62c;</i> {$list[0]->view}℃</span>
+						</div>
+					</div>
+					<div class="text" itemprop="articleBody">
+						   <div id="md_content_2" class="md_content" style="min-height: 50px;">
+						  {$list[0]->content}
+						 </div>            
+					</div>
+				{include file="public/comments"/}	
+		</div>
+	</div>
+</div>
+
+
+	   

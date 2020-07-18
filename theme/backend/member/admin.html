@@ -1,0 +1,62 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+		<form method="post" class="js-ajax-form" action="term/listorders">
+        <div class="col-lg-12">
+            <div class="card">
+			<div class="card-toolbar clearfix">
+		<div class="toolbar-btn-action">
+            <a class="btn btn-primary m-r-5" href="{:url('member/add')}"><i class="mdi mdi-plus"></i> 新增</a>
+          </div>
+        </div>
+		<div class="card-body">
+		<div class="table-responsive">		
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="50">ID</th>
+					<th>用户名</th>
+					<th>最后登录IP</th>
+					<th>最后登录时间</th>
+					<th>邮箱</th>
+					<th>状态</th>
+					<th width="120">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{empty name="list"}
+				<tr><td colspan="7">没有数据</td></tr>
+				{else/}
+				{volist name="list" id="vo"}
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.username}</td>
+					<td>{empty name="vo.last_login_ip"}----{else/}{$vo.last_login_ip}{/empty}</td>
+					<td>{empty name="vo.last_login_time"}----{else/}{$vo.last_login_time|date='Y-m-d H:i:s',###}{/empty}</td>
+					<td>{$vo.email}</td>
+					<td>{if condition="$vo.isban eq 1"}<span class="red">已拉黑</span>{else/}<span class="green">正常</span>{/if}</td>
+					<td>
+					<div class="btn-group">
+						<a class="btn btn-xs btn-success" href="{:url('Member/edit',['id'=>$vo.id])}" title="编辑" data-toggle="tooltip" ><i class="mdi mdi-pencil"></i></a> 
+						{if condition="$vo.id neq 1"}
+						<a class="btn btn-xs btn-dark" href="{:url('Member/priv',['id'=>$vo.id])}" title="权限设置" data-toggle="tooltip"><i class="mdi mdi-settings"></i></a>
+						<a href="{:url('Member/delAdmin',['id'=>$vo.id])}" class="btn btn-xs btn-danger js-ajax-delete" title="删除" data-toggle="tooltip" data-msg="您确定要删除此管理员吗？"><i class="mdi mdi-window-close"></i></a>
+						{/if}
+						</div>
+					</td>
+				</tr>
+				{/volist}
+				{/empty}
+			</tbody>
+			</table>
+			{notempty name="list"}<div class="pagination text-center">{$list->render()}</div>{/notempty}
+			</div>
+		</div>
+	</div>
+	</div>	
+	</form>
+	</div>	
+</div>	
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

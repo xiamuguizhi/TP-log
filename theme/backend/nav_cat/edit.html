@@ -1,0 +1,34 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+		<form method="post" class="row js-ajax-form" action="">
+			<input type="hidden" name="id" value="{$list[0]->id}"/>
+				<div class="form-group col-md-12">
+					<label class="control-label">分类名称</label>
+						<input type="text" name="name" value="{$list[0]->name}" class="form-control" >
+					</div>
+				
+				<div class="form-group col-md-12">
+					<label class="control-label">描述</label>
+						<textarea name="remark" rows="5" cols="57" class="form-control" >{$list[0]->remark}</textarea>
+				</div>
+				<div class="form-group col-md-12">
+					<label class="control-label" for="active">设为主菜单：</label>
+						<input type="checkbox" name="active" id="active" value="1" class="checkbox-inline"  {if condition="$list[0]->active eq 1"}checked{/if}>
+				</div>
+			<div class="form-group col-md-12">
+				<button type="submit" class="btn btn-primary js-ajax-submit">确认操作</button>
+				<a class="btn btn btn-default" href="javascript:history.back(-1);">返回</a>
+			</div>
+		</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

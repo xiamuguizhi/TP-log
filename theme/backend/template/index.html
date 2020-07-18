@@ -1,0 +1,84 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+
+
+		
+	<div class="col-lg-12">	
+      <div class="card">
+        <div class="card-body">
+		<table  class="table table-bordered table-hover">
+<thead>
+<tr>
+<th>名称</th>
+<th>模板版本</th>
+<th>适用版本</th>
+<th>作者/链接</th>
+<th>状态</th>
+<th>操作</th>
+</tr>
+</thead>
+          <ul class="">
+			{notempty name="list"}
+			{volist name="list" id="vo"}
+			<tr>
+                      <td>{$vo.tplname}</td>
+                      <td>{$vo.tplVer}
+					  <td>适用TPlog >= {$vo.tplForTp}</td>
+					  <td>{$vo.tplAuthor}</td>
+                      <td>{eq name="vo.file" value="$current"}<img src="/data/assets/images/btn_enable.png"  />{else/}<img src="/data/assets/images/btn_disable.gif" />{/eq}</td>
+					  <td>
+					 <div class="btn-group">
+                      <a class="btn btn-xs btn-success" data-toggle="modal" data-target="#{$vo.file}" title="设置" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
+                      <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('template/del',['file'=>$vo['file']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？"><i class="mdi mdi-window-close"></i></a>
+                    </div>
+                  </td>
+             </tr>
+			{/volist}
+            </tbody>
+            {else/}
+            <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">没有任何模板</td></tr></tbody>
+          {/notempty}
+        </table>
+      </div>
+    </div>
+    </div>
+      </div>
+    </div>
+    </div>	
+	{volist name="list" id="vo"}
+<div class="modal fade" id="{$vo.file}" tabindex="-1" role="dialog" aria-hidden="true" style="display:none;filter:alpha(opacity=100);">
+	<form class="form-horizontal js-ajax-form" action="" method="post">
+	<div class="modal-dialog" style="width:900px;margin-top:60px;z-index:1080">
+		<div class="modal-content" style="border-radius:0px;z-index:1080">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">{eq name="vo.file" value="$current"}<span style="color:red">已选择</span>{/eq}{$vo.tplname}</h4>
+			</div>
+			<div class="modal-body" style="max-height:400px;min-height:270px;overflow:auto;">
+				<div class="row theme_ntpls">
+					<div class="col-md-5 theme-preview">
+						<div class="screenshot"><img src="/theme/frontend/{$vo.file}/preview.jpg" alt=""></div>
+					</div>
+					<div class="col-md-7 theme-info">
+						<h3 class="theme-name">{$vo.tplname}</h3>
+						<h4 class="theme-version">模板版本：{$vo.tplVer}</span></h4>
+						<h4 class="theme-version">适用TPlog >= {$vo.tplForTp}</span></h4>
+						<h4 class="theme-author">{$vo.tplAuthor}</h4>
+						<p class="theme-description">{$vo.tplDes}</p>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-info js-ajax-submit">启用</button>
+				<a class="btn btn-danger  js-ajax-delete" href="{:url('template/del',['file'=>$vo['file']])}" title="删除" data-toggle="tooltip" data-msg="您确定删除吗？">删除</a>
+			</div>
+		</div>
+	</div>
+	<input type="hidden" name="configs[DEFAULT_THEME]" value="{$vo.file}">
+	</form>
+</div>
+{/volist}
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

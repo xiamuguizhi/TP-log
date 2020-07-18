@@ -1,0 +1,100 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+  <div class="row">
+    <div class="col-sm-6 col-md-3">
+      <div class="card bg-primary">
+        <div class="card-body clearfix">
+          <div class="pull-right">
+            <p class="h6 text-white m-t-0">今日文章</p>
+            <p class="h3 text-white m-b-0">{$statistics.blog_number}</p>
+          </div>
+          <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-file-document-box fa-1-5x"></i></span> </div>
+        </div>
+      </div>
+    </div>
+    
+	<div class="col-sm-6 col-md-3">
+      <div class="card bg-purple">
+        <div class="card-body clearfix">
+          <div class="pull-right">
+            <p class="h6 text-white m-t-0">今日微语</p>
+            <p class="h3 text-white m-b-0">{$statistics.tw_number}</p>
+          </div>
+          <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-comment-outline fa-1-5x"></i></span> </div>
+        </div>
+      </div>
+    </div>
+	
+	<div class="col-sm-6 col-md-3">
+      <div class="card bg-success">
+        <div class="card-body clearfix">
+          <div class="pull-right">
+            <p class="h6 text-white m-t-0">今日友链</p>
+            <p class="h3 text-white m-b-0">{$statistics.link_number}</p>
+          </div>
+          <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-lan fa-1-5x"></i></span> </div>
+        </div>
+      </div>
+    </div>
+	
+    <div class="col-sm-6 col-md-3">
+      <div class="card bg-danger">
+        <div class="card-body clearfix">
+          <div class="pull-right">
+            <p class="h6 text-white m-t-0">今日用户</p>
+            <p class="h3 text-white m-b-0">{$statistics.user_number}</p>
+          </div>
+          <div class="pull-left"> <span class="img-avatar img-avatar-48 bg-translucent"><i class="mdi mdi-account fa-1-5x"></i></span> </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </div>
+  
+   <div class="row">    
+    <div class="col-md-6"> 
+      <div class="card">
+        <div class="card-header">
+          <h4>系统信息</h4>
+        </div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <tbody>
+                {volist name="server_info" id="vo"}
+					<tr><td>{$key}</td> <td>{$vo}</td></tr>
+				{/volist}
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6"> 
+      <div class="card">
+        <div class="card-header">
+          <h4>其他信息</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+              <tbody>
+			  		<tr><td>二开作者</td> <td><a href="https://crazyus.net" target="_blank">疯狂老司机(@crazyus)</a></td></tr>
+					<tr><td>官方网站</td> <td><a href="https://www.tpframe.com" target="_blank">https://www.tpframe.com</a></td></tr>
+					<tr><td>官方QQ群</td> <td><a href="https://shang.qq.com/wpa/qunwpa?idkey=7a3377322411c293fe9653c8de252a56daa23003e497f3e3d50c36d4853b4136" target="_blank">129822766</a></td></tr>
+					<tr><td>开发帮助</td> <td><a href="https://www.tpframe.com/doc/index.html" target="_blank">在线文档</a></td></tr>
+					<tr><td>版权所有</td> <td>程序的所有权归"重庆头泉网络科技有限公司"所有，<a href="http://www.cqtouquan.com" target="_blank">查看官网</a></td></tr>
+					<tr><td>核心开发者</td> <td>刘贤德，张飞，关羽，诸葛孔明，赵子龙</td></tr>
+					<tr><td>团队成员</td> <td>刘贤德，张飞，关羽，诸葛孔明，赵子龙，大乔、小乔</td></tr>
+					<tr><td>联系邮箱</td> <td>510974211@qq.com</td></tr>
+					<tr><td>后台模板</td> <td><a href="https://gitee.com/yinqi/Light-Year-Admin-Template" target="_blank">Light Year Admin</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+     
+  </div>
+{/block}

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>{$title|default='后台管理系统'}</title>
+<link rel="icon" href="favicon.ico" type="__THEMES__/image/ico">
+<link href="__THEMES__/css/bootstrap.min.css" rel="stylesheet">
+<link href="__THEMES__/css/materialdesignicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="__THEMES__/js/bootstrap-multitabs/multitabs.min.css">
+<link href="__THEMES__/css/style.min.css" rel="stylesheet">
+<script type="text/javascript">//全局变量
+var GV = {
+      HOST:"www.crazyus.net",
+      ROOT: "/",
+      WEB_ROOT: "/",
+      JS_ROOT: "public/js/"
+};
+if(window.top.length>0){
+  window.top.location.href='{:url("Index/index")}';
+}
+</script>
+</head> 
+<body>
+<div class="lyear-layout-web">
+  <div class="lyear-layout-container">
+    <!--左侧导航-->
+    <aside class="lyear-layout-sidebar">
+      
+      <!-- logo -->
+      <div id="logo" class="sidebar-header">
+        <a href="index.html"><img src="__THEMES__/images/logo-sidebar.png" title="后台管理系统" alt="后台管理系统" /></a>
+      </div>
+      <div class="lyear-layout-sidebar-scroll"> 
+        
+        <nav class="sidebar-main">
+		{volist name="listTree" id="vo"}
+          <ul class="nav nav-drawer">
+		  {notempty name="vo.son"}		  
+            <li class="nav-item nav-item-has-subnav">
+              <a href="javascript:void(0)"><i class="mdi mdi-{$vo.icon}"></i> <span>{$vo.name}</span></a>
+               {notempty name="vo.son"}
+			  <ul class="nav nav-subnav">
+				{volist name="vo.son" id="child"}
+                <li> 
+				<a class="multitabs" href="{:url($child.module.'/'.$child.controller.'/'.$child.action,$child.urlext?$child.urlext:[])}">{$child.name}</a> 
+				 {notempty name="child.son"}
+					<ul class="nav nav-subnav">
+					{volist name="$child.son" id="son"}
+					<li class="nav-item nav-item-has-subnav"> 
+					<a class="multitabs" href="{:url($son.module.'/'.$son.controller.'/'.$son.action,$son.urlext?:[])}"> &nbsp;<i class="fa fa-angle-double-right"></i> <span class="menu-text"> {$son.name} </span> 
+					</a> 
+					</li>
+					{/volist}
+					</ul>
+				  {/notempty} 
+				</li>
+                {/volist}
+              </ul>
+			  {/notempty} 
+            </li>
+           {else}
+		    <li {neq name="$vo.id" value="37"}class="nav-item"{/neq} ><a {eq name="$vo.id" value="37"}class="multitabs"{/eq} href="{:url($vo.module.'/'.$vo.controller.'/'.$vo.action,$vo.urlext?$vo.urlext:[])}"><i class="mdi mdi-{$vo.icon}"></i> <span>{$vo.name}</span></a></li> 
+		   {/notempty}
+          </ul>
+		   {/volist}
+        </nav>
+        
+        <div class="sidebar-footer">
+          <p class="copyright">Power By <a href="https://www.tpframe.com/" target="_blank">TPframe</a>.</p>
+        </div>
+      </div>
+      
+    </aside>
+    <!--End 左侧导航-->
+    
+    <!--头部信息-->
+    <header class="lyear-layout-header">
+      
+      <nav class="navbar navbar-default">
+        <div class="topbar">
+          
+          <div class="topbar-left">
+            <div class="lyear-aside-toggler">
+              <span class="lyear-toggler-bar"></span>
+              <span class="lyear-toggler-bar"></span>
+              <span class="lyear-toggler-bar"></span>
+            </div>
+          </div>
+          
+          <ul class="topbar-right">
+            <li class="dropdown dropdown-profile">
+              <a href="javascript:void(0)" data-toggle="dropdown">
+                <span>{$Think.session.backend_author_sign.username} <span class="caret"></span></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li> <a class="multitabs" data-url="{:url('Member/userinfo')}" href="javascript:void(0)"><i class="mdi mdi-account"></i> 个人信息</a> </li>
+                <li> <a class="multitabs" data-url="{:url('Member/uppwd')}" href="javascript:void(0)"><i class="mdi mdi-lock-outline"></i> 修改密码</a> </li>
+                <li> <a href="javascript:void(0)" onclick="clearCache()"><i class="mdi mdi-delete"></i> 清空缓存</a></li>
+                <li class="divider"></li>
+                <li> <a href="{:url('User/loginout')}" class="ajax-handle"><i class="mdi mdi-logout-variant"></i> 退出登录</a> </li>
+              </ul>
+            </li>
+            <!--切换主题配色-->
+		    <li class="dropdown dropdown-skin">
+			  <span data-toggle="dropdown" class="icon-palette"><i class="mdi mdi-palette"></i></span>
+			  <ul class="dropdown-menu dropdown-menu-right" data-stopPropagation="true">
+			    <li class="drop-title"><p>LOGO</p></li>
+				<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="logo_bg" value="default" id="logo_bg_1" checked>
+                    <label for="logo_bg_1"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_2" id="logo_bg_2">
+                    <label for="logo_bg_2"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_3" id="logo_bg_3">
+                    <label for="logo_bg_3"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_4" id="logo_bg_4">
+                    <label for="logo_bg_4"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_5" id="logo_bg_5">
+                    <label for="logo_bg_5"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_6" id="logo_bg_6">
+                    <label for="logo_bg_6"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_7" id="logo_bg_7">
+                    <label for="logo_bg_7"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="logo_bg" value="color_8" id="logo_bg_8">
+                    <label for="logo_bg_8"></label>
+                  </span>
+				</li>
+				<li class="drop-title"><p>头部</p></li>
+				<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="header_bg" value="default" id="header_bg_1" checked>
+                    <label for="header_bg_1"></label>                      
+                  </span>                                                    
+                  <span>                                                     
+                    <input type="radio" name="header_bg" value="color_2" id="header_bg_2">
+                    <label for="header_bg_2"></label>                      
+                  </span>                                                    
+                  <span>                                                     
+                    <input type="radio" name="header_bg" value="color_3" id="header_bg_3">
+                    <label for="header_bg_3"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="header_bg" value="color_4" id="header_bg_4">
+                    <label for="header_bg_4"></label>                      
+                  </span>                                                    
+                  <span>                                                     
+                    <input type="radio" name="header_bg" value="color_5" id="header_bg_5">
+                    <label for="header_bg_5"></label>                      
+                  </span>                                                    
+                  <span>                                                     
+                    <input type="radio" name="header_bg" value="color_6" id="header_bg_6">
+                    <label for="header_bg_6"></label>                      
+                  </span>                                                    
+                  <span>                                                     
+                    <input type="radio" name="header_bg" value="color_7" id="header_bg_7">
+                    <label for="header_bg_7"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="header_bg" value="color_8" id="header_bg_8">
+                    <label for="header_bg_8"></label>
+                  </span>
+				</li>
+				<li class="drop-title"><p>侧边栏</p></li>
+				<li class="drop-skin-li clearfix">
+                  <span class="inverse">
+                    <input type="radio" name="sidebar_bg" value="default" id="sidebar_bg_1" checked>
+                    <label for="sidebar_bg_1"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_2" id="sidebar_bg_2">
+                    <label for="sidebar_bg_2"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_3" id="sidebar_bg_3">
+                    <label for="sidebar_bg_3"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_4" id="sidebar_bg_4">
+                    <label for="sidebar_bg_4"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_5" id="sidebar_bg_5">
+                    <label for="sidebar_bg_5"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_6" id="sidebar_bg_6">
+                    <label for="sidebar_bg_6"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_7" id="sidebar_bg_7">
+                    <label for="sidebar_bg_7"></label>
+                  </span>
+                  <span>
+                    <input type="radio" name="sidebar_bg" value="color_8" id="sidebar_bg_8">
+                    <label for="sidebar_bg_8"></label>
+                  </span>
+				</li>
+			  </ul>
+			</li>
+            <!--切换主题配色-->
+			<!--消息-->
+            <li class="dropdown notifications-menu">
+              <span class="dropdown-toggle icon-notifications" data-toggle="dropdown">
+                <i class="mdi mdi-bell"></i>
+                <span class="label label-warning">{$com_today_number}</span>
+              </span>
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li class="header">今天有{$com_today_number}个消息</li>
+                <li>
+                  <!-- inner menu: contains the actual data -->
+                  <ul class="menu">
+				  {volist name="$com_today" id="vo" } 
+                    <li>
+                      <a href="#">
+                        <i class="mdi mdi-account text-primary"></i> {$vo.poster}:{$vo.comment}
+                      </a>
+                    </li>
+				{/volist}
+                  </ul>
+                </li>
+                <li class="text-center"><a class="multitabs" data-url="{:url('comment/index')}" href="javascript:void(0)" >评论管理</span></a></li>
+              </ul>
+            </li>
+			
+			 <li class="dropdown">
+			 <span class="icon-home">
+				<a  href="{:url('/')}" target="_blank">
+                <i class="mdi mdi-desktop-mac"></i>
+              </a>
+			  </span>
+			</li>
+			
+          </ul>
+          
+        </div>
+      </nav>
+      
+    </header>
+    <!--End 头部信息-->
+    
+    <!--页面主要内容-->
+    <main class="lyear-layout-content">
+      
+      <div id="iframe-content"></div>
+      
+    </main>
+    <!--End 页面主要内容-->
+  </div>
+</div>
+
+<script type="text/javascript" src="__THEMES__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__THEMES__/js/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="__THEMES__/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="__THEMES__/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="__THEMES__/js/bootstrap-multitabs/multitabs.js"></script>
+<script type="text/javascript" src="__THEMES__/js/index.min.js"></script>
+<script type="text/javascript" src="__THEMES__/layer/layer.min.js"></script>
+<script>
+if ($('.ajax-handle').length) {
+        $('.ajax-handle').on('click', function (e) {
+            e.preventDefault();
+            var $_this = this,
+                $this = $($_this),
+                href = $this.data('href'),
+                href = href?href:$this.attr('href');
+            $.getJSON(href).done(function (data) {
+                if (data.code == 0) {
+                    if (data.url) {
+                        location.href = data.url;
+                    }else if (data.data) {
+                        location.href = data.data;
+                    } else {
+						layer.alert(data.msg, {
+						icon: "smile",
+						})
+						reloadPage(window);
+                                return true;
+                    }
+                }else{
+						layer.alert(data.msg, {
+						icon: "warning",
+						})
+					return true;    
+                }
+            });
+        });
+    }
+function clearCache() {	   
+	$.ajax({
+		url : "/backend/setting/clear",
+		success : function (data) {
+          layer.msg(data.msg, {icon: "smile", time: 1000}, function(){
+            location.reload();
+          });
+		}
+	})       
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+					<form action="" method="post" class="row js-ajax-form">
+					{notempty name="list"}<input type="hidden" name="id" value="{$list[0]->id}" />{/notempty}
+					<div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary js-ajax-button" target-form="add-form">确 定</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                  </div>		
+					<div class="form-group col-md-12">
+						<label class="control-label">邮件主题</label>
+						<div class="controls">
+							<input type="text" name="send_data[subject]" value="{$list[0]['send_data']['subject']|default=''}" class="form-control" >
+							<span class="form-required">*</span>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="control-label">发送场景</label>
+						<div class="controls">
+							<select name="send_data[send_scene]" class="form-control" >
+								{volist name="send_scene" id="vo"}
+								<option value="{$key}">{$vo}</option>
+								{/volist}
+							</select>
+							<span class="form-required red">* {empty name="send_scene"}发送场景已经完全添加{/empty}</span>
+						</div>
+					</div>
+					<div class="form-group col-md-12">
+						<label class="control-label">模板内容</label>
+						<div class="controls">
+							<textarea class="form-control"  rows="20" cols="57" name="send_data[tpl_content]">{$list[0]['send_data']['tpl_content']|default=''}</textarea>
+							<span class="form-required">* 请填写邮件发送模块</span>
+						</div>
+					</div>
+				<div class="form-group col-md-12">
+                    <button type="button" class="btn btn-primary js-ajax-button" target-form="add-form">确 定</button>
+                    <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
+                  </div>
+				</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+	<script src="__THEMES__/js/admin.js"></script>
+
+{/block}

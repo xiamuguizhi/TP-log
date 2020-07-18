@@ -1,0 +1,25 @@
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+                <a href="{$site_host}">首页</a>
+				<a><cite>{$list[0]->title}</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md12 layui-col-lg12">
+            <div class="archives">
+                <div class="title-page">
+                    <h3>{$list[0]->title}</h3>
+                    <p>目前共计 <em>{:Core::loadModel("Blog","frontend","logic")->getStatistics(["channel"=>'blog',"hide"=>'n'])}</em> 篇日志，共 <em>{:Core::loadModel("Comment","frontend","logic")->getStatistics(['display'=>1])}</em> 条评论，加油啊~</p>
+                </div>
+                <ul class="layui-timeline">
+				{assign name="list" value=':Core::loadAction("Blog/archive",[["where"=>["channel"=>"blog","hide"=>"n"],"order"=>"datetime DESC"]])' id="vo"}
+				{$list}
+				</ul>
+            </div>
+        </div>
+		</div>
+ </div>
+
+
+

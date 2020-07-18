@@ -1,0 +1,115 @@
+<div class="layui-container">
+    <div class="layui-row layui-col-space15 main">
+        <div class="map">
+            <span class="layui-breadcrumb">
+               <a href="{$site_host}">首页</a>
+               <a><cite>{$tw_name}</cite></a>
+            </span>
+        </div>
+        <div class="layui-col-md12 layui-col-lg12">
+            <div class="title-life">
+                <h3><i class="layui-icon">&#xe688;</i>  <span class="typed"></span></h3>
+            </div>
+            <div class="mylife">
+			<div id="respond-tw" class="respond" style="display:none">	
+					<div class="cancel-comment-reply">
+					<a id="cancel-comment-reply-link" href="javascript:;" rel="nofollow" style="" onclick="return TpComment.cancelTw();">取消回复</a>            </div>			
+										<form method="post" action="{:url('T/index')}" id="comment-form" role="form" class="js-ajax-form">
+										<div class="layui-form-item layui-row layui-col-space5">
+										<div class="layui-col-md4">
+										<input type="text" name="name" id="name" class="layui-input" placeholder="* 昵称"  value='{$has_name}' required />
+										</div>
+										</div>
+										<div class="layui-form-item">
+										<textarea rows="2" cols="5" name="content" id="content" placeholder="内容" class="layui-textarea" required></textarea>
+										</div>
+
+										<div class="layui-inline">
+										<button type="button" class="layui-btn layui-btn-normal js-ajax-submit">提交申请</button>
+										<input type="checkbox" id="saveme"  name="check"  ><label for="comment_mail_notify"> 我不是机器人</label>
+										</div>
+										</form>
+				</div>
+                <ol class="comment-list">
+				{volist name="list" id="vo"}
+				<div id="comment-{$vo.id}" class="t-list comment-parent comment-odd comment-by-author">
+						<div class="t-p"><img class="avatar" src="{$vo.email|getGravatar}" alt="{$vo.nickname}" width="40" height="40" /></div>
+						<div class="t-r">
+						<strong>{$vo.nickname}</strong>
+						<p>{$vo.content|iSsmilies}<br/>
+						{notempty name="$vo.img"}
+						{volist name=':Core::loadAction("Twitter/getImg",["tid"=>$vo.id])' id="v"}
+						<a target="_blank" href="{$v}" rel="external">
+						<img class="lazy list-img" src="__THEMES__/img/loading.gif" data-src="{$v}" style="height: 80px;" title="点击查看原图" >
+						</a>
+						{/volist}
+						{/notempty}
+						</p>
+						<span><i class="layui-icon">&#xe60e;</i> {$vo.date|smartDate}</span>
+						<a href="javascript:;" onclick="return TpComment.twreply('comment-{$vo.id}', {$vo.id},'');" class="c-icon tw-reply" ><i class="layui-icon">&#xe63a;</i> 回复({$vo.replynum})</a>	
+						<a href="javascript:;" onclick="dot_good({$vo.id},this)" data-id="{$vo.id}" data-herf="{:url('t/favorite')}" class='c-icon dot_good {:Core::loadAction("Twitter/gethas",["id"=>$vo.id])}' id="likes-{$vo.id}">
+						<i class="layui-icon">&#xe6c6;</i>
+						<span class="count">{$vo.likes}</span> 赞
+						</a>
+						</div>
+						{notempty name=':Core::loadAction("Twitter/getReply",["tid"=>$vo.id])'}
+						<div class="r"></div>
+						<div class="cmt-wrap" {gt name="$vo.replynum" value="1"}id="tw-more-{$vo.id}"{/gt}>
+						<div class="cmt-list">
+						{volist name=':Core::loadAction("Twitter/getReply",["tid"=>$vo.id])' id="vv"}
+						<p class="toreply" onclick="return TpComment.twreply('comment-{$vo.id}', {$vo.id},'{$vv.name}');"><span>{$vv.name}：</span>{$vv.content|iSsmilies} (<time datetime="{$vv.date|smartDate}" itemprop="datePublished" pubdate>{$vv.date|smartDate}</time>)</p>
+						{/volist}
+						</div>
+						</div>					
+						{/notempty}
+				</div>			
+				{/volist}
+					</ol>
+					</div>
+{notempty name="list"}
+<nav role="navigation">
+	{$list->render()}
+</nav>
+{/notempty}
+	
+
+
+</div>
+</div>
+
+</div>
+
+<script type="text/javascript" src="__THEMES__/js/typed.min.js"></script>
+<script>
+    var typed = new Typed(".title-life .typed", {
+        strings: ["<p>美好的生活需要用心记录</p>"],
+        typeSpeed:30 // 速度
+    });
+</script>
+<style type="text/css">
+    /* 如果光标没出现，而是出现在下一行，那么就是盒子是块级标签，必须得转换成行内标签 */
+    .title-life p {
+        display: inline;
+    }
+    /* 想让的光标闪动的话，复制下面的代码 */
+    .typed-cursor{
+        opacity: 1;
+        animation: typedjsBlink 0.7s infinite;
+        -webkit-animation: typedjsBlink 0.7s infinite;
+        animation: typedjsBlink 0.7s infinite;
+    }
+    @keyframes typedjsBlink{
+        50% { opacity: 0.0; }
+    }
+    @-webkit-keyframes typedjsBlink{
+        0% { opacity: 1; }
+        50% { opacity: 0.0; }
+        100% { opacity: 1; }
+    }
+    .typed-fade-out{
+        opacity: 0;
+        transition: opacity .25s;
+        -webkit-animation: 0;
+        animation: 0;
+    }
+</style>

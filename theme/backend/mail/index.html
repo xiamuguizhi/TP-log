@@ -1,0 +1,66 @@
+{extend name="base"}
+{block name="content"}
+		<div class="container-fluid p-t-15"> 
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <ul class="nav nav-tabs page-tabs">
+			<li class="active"><a href="{:url('mail/index')}">邮件配置</a></li>
+			<li><a href="{:url('sms/index')}" >模板管理</a></li>
+		</ul>
+		
+		
+<div class="col-lg-12">
+<div class="alert alert-danger" role="alert" style=" margin-left: 11px;margin-right: 11px;"> <font class="red">注意：</font>一切发送失败啥的，跟程序无关，都是服务器或者配置问题</div>
+</div>
+<div class="box">
+<div class="card-body"> 
+						<form method="post" class="row js-ajax-form" action="" novalidate="novalidate">
+
+								<div class="form-group col-md-12">
+						<label class="control-label">邮件发送服务器(SMTP)</label>
+							<input type="text" name="configs[host]" value="{empty name=":config('config.host')"}smtp.qq.com{else/}{:config('config.host')}{/empty}" id="host" class="form-control" >
+							<div class="help-block">发送邮箱的smtp地址。如: smtp.gmail.com或smtp.qq.com</div>
+						</div>
+						<div class="form-group col-md-12">
+						<label class="control-label">服务器(SMTP)端口</label>
+							<input type="text" name="configs[port]" value="{empty name=":config('config.port')"}25{else/}{:config('config.port')}{/empty}" id="port" class="form-control" >
+							<div class="help-block">smtp的端口。默认为25。具体请参看各STMP服务商的设置说明 （如果使用Gmail，请将端口设为465）</div>
+						</div>
+						<div class="form-group col-md-12">
+						<label class="control-label">邮箱账号</label>
+							<input type="text" name="configs[username]" value="{:config('config.username')}" id="username" class="form-control" >
+							<div class="help-block">使用发送邮件的邮箱账号</div>
+						</div>
+						<div class="form-group col-md-12">
+						<label class="control-label">邮箱密码/授权码</label>
+							<input type="text" name="configs[password]" value="{:config('config.password')}" id="password" class="form-control" >
+							<div class="help-block">使用发送邮件的邮箱密码,或者授权码。具体请参看各STMP服务商的设置说明</div>
+						</div>
+								<div class="form-group col-md-12">
+									<label class="control-label">发送方式</label>
+									<div class="controls">
+										<select name="configs[sendtype]" class="form-control">
+											<option value="1" {eq name=":config('config.sendtype')" value="1"}selected{/eq}>SMTP方式</option>
+											<option value="0" {eq name=":config('config.sendtype')" value="0"}selected{/eq}>Mail方式</option>
+										</select>
+									</div>
+								</div>
+										<div class="form-group col-md-12">
+						<label class="control-label">接收邮箱</label>
+							<input type="text" name="configs[toemail]" value="{:config('config.toemail')}" id="toemail" class="form-control" >
+							<div class="help-block">接收邮件的邮箱账号</div>
+						</div>
+				<div class="form-group col-md-12">
+					<button type="button" class="btn btn-primary js-ajax-button" target-form="add-form">确 定</button>
+				</div>
+
+		</form>
+		 </div>
+    </div>
+    </div>
+      </div>
+    </div>
+    </div>	
+    <script src="__THEMES__/js/admin.js"></script>
+{/block}

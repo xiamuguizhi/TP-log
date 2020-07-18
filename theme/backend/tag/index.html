@@ -1,0 +1,68 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                <form class="form-inline  form-search" method="get" action="">
+					<input type="hidden" name="act" value="search" />					
+					关键字： 
+					<input type="text" name="keyword" style="width: 200px;" value="{$search.keyword|default=''}" placeholder="请输入关键字..." class="form-control">
+					<input type="submit" class="btn btn-primary" value="搜索">
+					<a class="btn btn-danger" href="{:url('tag/index')}">清空</a>
+				</form>
+                </div>
+            </div>
+        </div>
+		<form method="post" class="js-ajax-form" action="term/listorders">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-toolbar clearfix">
+                    <div class="toolbar-btn-action">
+                        <a class="btn btn-primary m-r-5" href="{:url('tag/add_edit')}"><i class="mdi mdi-plus"></i> 新增</a>					 
+                    </div>
+                </div>
+				<div class="card-body">
+                    <div class="table-responsive">		
+						<table class="table table-bordered">
+                            <thead>
+                            <tr>
+							<th width="10">ID</th>
+							<th>名称</th>
+							<th width="80px">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					{empty name="list"}
+					<td colspan="11">没有标签，去新增一个标签</td>
+					{else/}
+						{volist name="list" id="vo"}
+						<tr>
+
+							<td>
+								{$vo.id}
+							</td>
+								<td>
+								<a href="{:url('index/index',['tid'=>$vo.id])}" target="_blank"  title="前台浏览" data-toggle="tooltip">{$vo.tagname}</a>
+							</td>
+	
+						
+			 <td>
+                        <div class="btn-group">
+                        <a class="btn btn-xs btn-success" href="{:url('tag/add_edit',['id'=>$vo['id']])}" title="编辑" data-toggle="tooltip" ><i class="mdi mdi-pencil"></i></a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('tag/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定要删除此【{$vo.tagname}】标签吗？" ><i class="mdi mdi-window-close"></i></a>
+                        </div>
+                       </td>
+						</tr>
+						{/volist}
+					{/empty}
+					</tbody>
+				</table>
+				{notempty name="list"}
+				<div class="pagination text-center">{$list->render()}</div>
+			{/notempty}
+			</form>
+		</div>
+<script src="__THEMES__/js/admin.js"></script>
+{/block}

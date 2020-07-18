@@ -1,0 +1,95 @@
+{extend name="base"}
+{block name="content"}
+<div class="container-fluid p-t-15">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+               <div class="card-toolbar clearfix">
+                    <div class="toolbar-btn-action">
+               <form class="form-inline form-search" id="mainform" action="" method="post">
+			<select id="navcid_select" name="cid" class="form-control selector">
+				{volist name="listNavCat" id="vo"}
+				<option value="{$vo.id}" {eq name="vo.id" value="$cid"}selected{/eq}>{$vo.name}</option>
+				{/volist}	
+			</select>
+			<a class="btn btn-primary" href="{:url('nav_cat/add')}"><i class="mdi mdi-plus"></i> 新增菜单分类</a>
+				</form>
+		</div>
+		</div>
+		  <div class="card-body">
+        <div class="table-responsive">	
+		<form class="form-horizontal js-ajax-form" method="post" novalidate="novalidate">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="100">ID</th>
+						<th>名称</th>
+						<th>描述</th>
+						<th width="120">主菜单</th>
+						<th width="120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{volist name="listNavCat" id="vo"}
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.name}</td>
+					<td>{$vo.remark}</td>
+					<td>{if condition="$vo.active eq 1"}是{else/}否{/if}</td>
+					<td>
+					<div class="btn-group">
+                    <a class="btn btn-xs btn-default" href="{:url('NavCat/edit',['id'=>$vo.id])}" title="编辑" data-toggle="tooltip" ><i class="mdi mdi-pencil"></i></a> 
+					{if condition="$vo.id neq 1"}
+                    <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('NavCat/del',['id'=>$vo['id']])}" title="删除" data-toggle="tooltip" data-msg="您确定要删除吗？"><i class="mdi mdi-window-close"></i></a>
+					{/if}
+                    </div>
+					</td>
+				</tr>		
+				{/volist}
+				</tbody></table>
+		</form>
+		</div>
+		</div>
+		</div>
+		
+		
+		
+		</div>
+		 <div class="col-lg-6">
+            <div class="card">
+		<div class="card-toolbar clearfix">
+        <div class="toolbar-btn-action">
+			<a class="btn btn-primary" href="{:url('nav/add')}"><i class="mdi mdi-plus"></i> 自定义</a>
+			<a class="btn btn-info" href="{:url('nav/adds')}"><i class="mdi mdi-plus"></i> 添加分类</a>
+			<a class="btn btn-success" href="{:url('nav/addp')}"><i class="mdi mdi-plus"></i> 添加页面</a>
+		</div>
+		</div>
+		<div class="card-body">
+                    <div class="table-responsive">			
+		<form class="js-ajax-form" action="" method="post" novalidate="novalidate">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">排序</th>
+						<th width="50">ID</th>
+						<th>菜单名称</th>
+						<th width="120">路径</th>
+						<th width="80">状态</th>
+						<th width="100">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{$categorys}
+			</tbody>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+			$(function(){
+				$("#navcid_select").change(function(){
+					$("#mainform").submit();
+				});
+			});
+		</script>
+	<script src="__THEMES__/js/admin.js"></script>
+{/block}
