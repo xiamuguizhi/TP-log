@@ -46,7 +46,7 @@ class SmsTemplete extends AdminBase
         if(isset($data['id'])){
         	$list=self::getObject(['id'=>$data['id']]);
         }
-        $send_scene=[1   =>'评论通知',2   =>'评论回复',3 => '微语通知',4   =>'微语回复',6   =>'链接申请通知',7   =>'注册通知',8   =>'用户找回密码', 9   =>'修改密码'];
+        $send_scene=[1   =>'评论通知',2   =>'评论回复',3 => '微语通知',4   =>'微语回复',5   =>'链接申请通知',6   =>'注册通知',7   =>'用户找回密码', 8   =>'修改密码'];
         foreach ($result as $key => $value) {
         	if(isset($data['id']) && $value['id']==$list[0]['id']) continue;
             $arr=json_decode($value['send_data'],true);
