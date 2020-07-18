@@ -30,7 +30,7 @@ class Link extends FrontendBase
 		$site_url = Core::loadAction("Setting/getSetting",['column'=>"site_host"]);
 		$site_name = Core::loadAction("Setting/getSetting",['column'=>"site_name"]);
 		$tomail = config("config.toemail");
-		$send_scene = 6;
+		$send_scene = 5;
 	
 		//获取模板
 		$listMailTemplete = Core::loadModel("SmsTemplete")->getList(['where'=>['send_scene'=>$send_scene,'module'=>'mail']]);			
