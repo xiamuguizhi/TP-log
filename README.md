@@ -1,4 +1,4 @@
-![](http://www.tpframe.com/data/assets/images/mark_logo.jpg) 
+![](https://raw.githubusercontent.com/eisongao/eisongao.github.io/master/img/logo-ico.png) 
 TP-log
 ===============
 使用TPFrame框架二开CMS博客程序，在ThinkPHP动力驱动模式下做了进一步的开发，对CBD模式做了更深的强化，优化核心，减少依赖，为个人或企业建站提供高效、快速解决的方案，是你快速做在线成品、是你建设各种系统的首选利器，TP-log的主要特性：
@@ -82,6 +82,38 @@ www  WEB部署目录（或者子目录）
 ├─think                 命令行入口文件
 ├─index.php             入口文件
 ├─...            		其它文件
+~~~
+
+## 模板格式说明
+theme\frontend\default(以默认主题为例）
+├─default           主题目录
+│  ├─404               错误页
+│  │  ├─404.html       	404错误页面
+│  ├─assets            调用资源文件夹，比如css,js,img等等
+│  │  ├─css       		样式
+│  │  ├─img             图片
+│  │  ├─js              js
+│  │  ├─layui           layui样式
+│  ├─index           	首页
+│  │  ├─index.html       首页
+│  ├─pages           	页面
+│  │  ├─archive.html       归档
+│  │  ├─links.html         友情链接
+│  │  ├─message.html       留言
+│  │  ├─page.html          默认调用页面
+│  │  ├─.....       	   其他的自由发挥
+│  ├─posts              文章
+│  │  ├─show.html       详细内容
+│  ├─public        		公共页面
+│  │  ├─comments.html      评论
+│  │  ├─footer.html        底部
+│  │  ├─header.html        头部
+│  │  ├─result.html        显示分类和标签
+│  │  ├─sidebar.html       侧栏
+│  ├─t        			微语
+│  │  ├─index.html         微语
+│  ├─layout.html        主体(不能删除和更改名称）
+│  ├─preview.jpg        缩略图后台模板预览用
 ~~~
 
 ## 自动安装
