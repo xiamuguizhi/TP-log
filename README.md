@@ -149,6 +149,10 @@ theme\frontend\default(以默认主题为例）
 ## 插件说明
 *   官网的不一定通用的，可以参考，但改改就能用了，so easy的 （我就不说明了）
 
+##  图片预览
+![](https://raw.githubusercontent.com/eisongao/eisongao.github.io/master/img/install.png) 
+![](https://raw.githubusercontent.com/eisongao/eisongao.github.io/master/img/home.png) 
+![](https://raw.githubusercontent.com/eisongao/eisongao.github.io/master/img/backend.png) 
 
 ### 网站指示:
 
