@@ -37,7 +37,7 @@ class Sms extends AdminBase
         $this->jump(Core::loadModel("SmsTemplete")->saveSmsTemplete($this->param));
       }
       if(isset($this->param['id'])){
-        $list=Core::loadModel("SmsTemplete")->getSmsTemplete(["where"  =>["id"=>$this->param['id']]]);
+        $list=Core::loadModel("SmsTemplete")->getSmsTemplete(["where" =>["id"=>$this->param['id']]]);
         foreach ($list as $key => $value) {
           $list[$key]['send_data']=json_decode($value->send_data,true);
         }
