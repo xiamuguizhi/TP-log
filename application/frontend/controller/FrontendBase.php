@@ -29,6 +29,7 @@ class FrontendBase extends ControllerBase
 		$tw_name = Core::loadAction("Setting/getSetting",['column'=>"tw_name"]);
 		$tw_num =  Core::loadModel("Twitter","frontend","logic")->getStatistics();
 		$Category = Core::loadModel("Sort")->getChilds();		
-		$this->assign(["site_name"=>$site_name,"site_host"=>$site_host,"tw_name"=>$tw_name,"tw_num"=>$tw_num,"category"=>$Category,"controller"=>$c]);
+		$Userinfo = Core::loadModel("user")->where(['id'=>1])->find();		
+		$this->assign(["site_name"=>$site_name,"site_host"=>$site_host,"tw_name"=>$tw_name,"tw_num"=>$tw_num,"category"=>$Category,"controller"=>$c,"userinfo"=>$Userinfo]);
     }
 }
