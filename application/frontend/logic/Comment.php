@@ -324,9 +324,11 @@ class Comment extends FrontendBase
 		
 		
 		$date['gid'] = $data['gid'];
-        $date['pid'] = $data['pid'];
+       		$date['pid'] = $data['pid'];
 		$date['date'] = time();
 		$date['poster'] = $data['poster'];
+	    //定义author 楼层回复@ID
+	   	 $author=$data['author'];
 		if ($data['author'] != 0 || $data['author'] != '') {		
             $content = '@' . addslashes($author ) . '：' . $data['comment'];
 			$date['comment'] = $content;
