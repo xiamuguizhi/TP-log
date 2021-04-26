@@ -57,7 +57,7 @@ class Comment extends FrontendBase
      * @return array
      */
     private function getChildComments($pid){
-		$comments = self::getList(["where"=>["pid"=>$pid,"display"=>1],"order" =>"date DESC"]);
+		$comments = self::getList(["where"=>["pid"=>$pid,"display"=>1],"order" =>"date Asc"]);
         $arr = array();
         if($comments){
             foreach ($comments as $k => &$v){
@@ -137,6 +137,9 @@ class Comment extends FrontendBase
 	
 	public function checkIP($Ip) {
 		$ips= [config("config.blacklist")];
+		if(empty(config("config.blacklist"))){
+			return false;
+        }
         $iptable = $this->getAllBlockIP($ips);
         $IsJoined = false;
         if ($iptable) {
@@ -291,7 +294,7 @@ class Comment extends FrontendBase
         }
 		
 		//检测来源ip是否被封
-		if( !$this->checkIP(Request::instance()->ip())){
+		if($this->checkIP(Request::instance()->ip())){
 			return [RESULT_ERROR,"您的IP已被系统屏蔽，评论发表失败",null];
 		}	
 		
@@ -328,7 +331,7 @@ class Comment extends FrontendBase
 		$date['date'] = time();
 		$date['poster'] = $data['poster'];
 		if ($data['author'] != 0 || $data['author'] != '') {		
-            $content = '@' . addslashes($author ) . '：' . $data['comment'];
+            $content = '@' . addslashes($data['author']) . '：' . $data['comment'];
 			$date['comment'] = $content;
         }else{
 		$date['comment'] = $data['comment'];
