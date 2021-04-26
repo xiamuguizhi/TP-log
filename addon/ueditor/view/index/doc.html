@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ueditor编辑器的使用</title>
+</head>
+<style type="text/css">
+	.code{
+		background-color: #000;
+    	padding: 10px;
+    	color: #FFF;
+	}
+</style>
+<body>
+<p>在你想要用编辑器的模板页面加如下代码即可：</p>
+<p class="code">	
+	{literal}{:Core::hook('ueditor',['name'=>'content','width'=>750,'height'=>200,'default_str'=>'留言内容','toolbars'=>[['source', 'undo', 'redo', 'bold'],['fullscreen','redo']]])}{/literal}
+</p>
+<h3>参数说明:</h3>
+<p>name：要生成的编辑器的名称，默认值为content，用于php端接收参数</p>
+<p>width：编辑器的宽度，默认1000</p>
+<p>height：编辑器的高度，默认320</p>
+<p>default_str：编辑器默认内容</p>
+<p>toolbars：编辑器工具栏，传递一维数组或二维数组，其中二维数组表示第一排的图标功能，默认为编辑器初始值</p>
+<p><strong>注意：</strong>如果你想在一个页面用两个或以上的ueditor编辑器，请给第二个以上的调用都加上has_more参数，例如：</p>
+<p>
+{literal}{:Core::hook('ueditor',['name'=>'content2','width'=>750,'height'=>200,'default_str'=>'留言内容','toolbars'=>[['source', 'undo', 'redo', 'bold'],['fullscreen','redo']],"has_more"=>1])}{/literal}
+</p>
+<p>生成出来的效果如下：</p>
+<p><img src="http://www.tpframe.com/data/uploads/20180313/1520916695247024.jpg" width="754" height="262" /></p>
+</body>
+</html>
