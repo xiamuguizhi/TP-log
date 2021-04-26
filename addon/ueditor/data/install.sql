@@ -1,0 +1,2 @@
+INSERT INTO `tpf_hook` (`name`, `describe`, `module`, `update_time`, `create_time`) VALUES ('ueditor', '富文本编辑器', 'ueditor','0', '0');
+INSERT INTO `tpf_addon` (`module`, `title`, `describe`, `config`,  `author`, `version`, `status`,`type`, `create_time` , `update_time`)  VALUES ('ueditor', '编辑器', '富文本编辑器', '', 'yaosean', '2.0', '1','behavior', '0', '0');
