@@ -103,7 +103,7 @@
 				</div>
 				<div class="comment-info">
 					<div class="comment-top">
-						<span class="comment-nickname"><a  href="{$vo.url}"  $nofollow target="_blank">{$vo.poster}</a></span>	
+						<span class="comment-nickname"><a  href="{:Core::loadAction("Setting/getSetting",['column'=>"site_host"])}go.php?url={$vo.url|base64_encode}"  $nofollow target="_blank">{$vo.poster}</a></span>	
 						{if $list[0]->email == $vo.mail}<span class="comment-level">管理员</span>{else/}<span class="comment-level1">游客</span>{/if}						
 						<span class="comment-time">{$vo.date|smartDate}</span>		
 						<span class="right">#{$vo.i}</span>
@@ -128,7 +128,7 @@
 				</div>
 				<div class="comment-info">
 					<div class="comment-top">
-						<span class="comment-nickname" id="{$v.poster}"><a  href="{$v.url}"  $nofollow target="_blank">{$v.poster}</a></span>
+						<span class="comment-nickname" id="{$v.poster}"><a  href="{:Core::loadAction("Setting/getSetting",['column'=>"site_host"])}go.php?url={$v.url|base64_encode}"  $nofollow target="_blank">{$v.poster}</a></span>
 						{if $list[0]->email == $v.mail}<sup class="comment-level">管理员</sup>{else/}<sup class="comment-level1">游客</sup>{/if}
 						<span class="comment-time">{$v.date|smartDate}</span>						
 						<span class="right">#{$vo.i}-{$vo->k--}</span>
@@ -139,7 +139,7 @@
 						</div>
 					</div>
 					<div class="comment-footer">				
-						<span class="reply" onclick="return TpComment.reply('comment-{$v.id}',{$vo.id},'{$vo.poster}');">@回复</span>
+						<span class="reply" onclick="return TpComment.reply('comment-{$v.id}',{$vo.id},'{$v.poster}');">@回复</span>
 						<span class="comment-support pointer {:Core::loadAction("Comment/gethas",["id"=>$v.id])}" onclick="dot_good({$v.id},this)" data-id="{$v.id}" data-herf="{:url('Comment/favorite')}"  id="likes-{$v.id}"><i class="czs-thumbs-up-l"></i>点赞&nbsp;<span class="count">{$v.likes}</span></span>
 					</div>
 				</div>
