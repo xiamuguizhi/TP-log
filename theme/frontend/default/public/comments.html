@@ -139,7 +139,7 @@
 						</div>
 					</div>
 					<div class="comment-footer">				
-						<span class="reply" onclick="return TpComment.reply('comment-{$v.id}',{$vo.id},'{$v.poster}');">@回复</span>
+						<span class="reply" onclick="return TpComment.reply('comment-{$v.id}',{$v.id},'{$v.poster}');">@回复</span>
 						<span class="comment-support pointer {:Core::loadAction("Comment/gethas",["id"=>$v.id])}" onclick="dot_good({$v.id},this)" data-id="{$v.id}" data-herf="{:url('Comment/favorite')}"  id="likes-{$v.id}"><i class="czs-thumbs-up-l"></i>点赞&nbsp;<span class="count">{$v.likes}</span></span>
 					</div>
 				</div>
