@@ -13,39 +13,41 @@
                     <div class="form-group  col-md-12">
                     <label for="content">内容</label>
 					{if condition="$editor eq 'ueditor'"}
-					{:Core::hook('ueditor',['name'=>'content','width'=>'100%','height'=>'','default_str'=>'','toolbars'=>''])}
+						{:Core::hook('ueditor',['name'=>'content','width'=>'100%','height'=>'','default_str'=>'','toolbars'=>''])}
+					{elseif condition="$editor eq 'markdown'"}
+						{:Core::hook('markdown',['name'=>'content','width'=>'100%','height'=>'580','default_str'=>'','syncScrolling'=>'single','watch'=>'false'])}
 					{elseif condition="$editor eq 'kindeditor'"/}
-					{:Core::hook('kindeditor',['name'=>'content'])}
+						{:Core::hook('kindeditor',['name'=>'content'])}
 					{else/}
-					<textarea id="content" name="content" ></textarea>
-					<script src="__THEMES__/tinymce/tinymce.min.js"></script>
-				   <script>
-					$(document).ready(function(){
-						tinymce.init({
-							selector: '#content',
-							language: 'zh_CN',
-							directionality: 'ltl',
-							browser_spellcheck: true,
-							contextmenu: false,
-							height: 580,
-							plugins: [
-								"advlist autolink lists link image charmap print preview anchor",
-								"searchreplace visualblocks code fullscreen",
-								"insertdatetime media table  paste   wordcount",
-								"code"
-							],
-							toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link responsivefilemanager  | code",
-							image_advtab: true,
-							//images_upload_url: '{:url("blog/upload")}', // 后端返回的json格式{ location : "/demo/image/1.jpg" }
-							external_filemanager_path: "__THEMES__/filemanager/",
-							filemanager_title: "文件管理",
-							external_plugins: {
-							"responsivefilemanager": "__THEMES__/tinymce/plugins/responsivefilemanager/plugin.min.js",
-							"filemanager": "__THEMES__/filemanager/plugin.min.js"
-						},
+						<textarea id="content" name="content" ></textarea>
+						<script src="__THEMES__/tinymce/tinymce.min.js"></script>
+						<script>
+						$(document).ready(function(){
+							tinymce.init({
+								selector: '#content',
+								language: 'zh_CN',
+								directionality: 'ltl',
+								browser_spellcheck: true,
+								contextmenu: false,
+								height: 580,
+								plugins: [
+									"advlist autolink lists link image charmap print preview anchor",
+									"searchreplace visualblocks code fullscreen",
+									"insertdatetime media table  paste   wordcount",
+									"code"
+								],
+								toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link responsivefilemanager  | code",
+								image_advtab: true,
+								//images_upload_url: '{:url("blog/upload")}', // 后端返回的json格式{ location : "/demo/image/1.jpg" }
+								external_filemanager_path: "__THEMES__/filemanager/",
+								filemanager_title: "文件管理",
+								external_plugins: {
+								"responsivefilemanager": "__THEMES__/tinymce/plugins/responsivefilemanager/plugin.min.js",
+								"filemanager": "__THEMES__/filemanager/plugin.min.js"
+							},
+							});
 						});
-					});
-					</script>					
+						</script>					
 					{/if}
 					</div>
 					<div class="form-group col-md-12">

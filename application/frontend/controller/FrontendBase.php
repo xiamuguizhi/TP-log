@@ -12,6 +12,7 @@
 namespace app\frontend\controller;
 use \tpfcore\Core;
 use app\common\controller\ControllerBase;
+use \parsedown\Parsedown; 
 
 class FrontendBase extends ControllerBase
 {
@@ -23,6 +24,7 @@ class FrontendBase extends ControllerBase
         	$this->jump([RESULT_ERROR,config("config.WEB_SITE_CLOSE_DES")]);
         }
 		}
+		$Parsedown = new Parsedown();
 		$c = request()->controller();
 		$site_name = Core::loadAction("Setting/getSetting",['column'=>"site_name"]);
 		$site_host =  Core::loadAction("Setting/getSetting",['column'=>"site_host"]);
@@ -30,6 +32,6 @@ class FrontendBase extends ControllerBase
 		$tw_num =  Core::loadModel("Twitter","frontend","logic")->getStatistics();
 		$Category = Core::loadModel("Sort")->getChilds();		
 		$Userinfo = Core::loadModel("user")->where(['id'=>1])->find();		
-		$this->assign(["site_name"=>$site_name,"site_host"=>$site_host,"tw_name"=>$tw_name,"tw_num"=>$tw_num,"category"=>$Category,"controller"=>$c,"userinfo"=>$Userinfo]);
+		$this->assign(["site_name"=>$site_name,"site_host"=>$site_host,"tw_name"=>$tw_name,"tw_num"=>$tw_num,"category"=>$Category,"controller"=>$c,"userinfo"=>$Userinfo,"Parsedown"=>$Parsedown,]);
     }
 }

@@ -22,7 +22,7 @@
 			<div class="text" itemprop="articleBody">
                 <div id="md_content_2" class="md_content" style="min-height: 50px;">
 				{empty name="$list[0]->password"}
-				{$list[0]->content}
+					{$Parsedown->text($list[0]->content)} 
 				{else /}
 					{notempty name="$password"}
 					{$list[0]->content}

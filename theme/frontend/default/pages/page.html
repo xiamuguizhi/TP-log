@@ -16,7 +16,7 @@
 					</div>
 					<div class="text" itemprop="articleBody">
 						   <div id="md_content_2" class="md_content" style="min-height: 50px;">
-						  {$list[0]->content}
+								{$Parsedown->text($list[0]->content)} 
 						 </div>            
 					</div>
 				{include file="public/comments"/}	

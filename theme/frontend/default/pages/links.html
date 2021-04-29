@@ -13,7 +13,7 @@
 					<div class="text" itemprop="articleBody">
 						   <div id="md_content_2" class="md_content" style="min-height: 50px;">								
 								<div id="respond-post" class="respond">
-									{$list[0]->content}
+										{$Parsedown->text($list[0]->content)} 
 									<br/>
 										<form method="post" action="{:url('Link/add')}" id="comment-form" role="form" class="js-ajax-form">
 										<div class="layui-form-item layui-row layui-col-space5">

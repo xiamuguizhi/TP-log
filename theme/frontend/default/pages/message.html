@@ -16,7 +16,7 @@
 					</div>
 					<div class="text" itemprop="articleBody">
 						   <div id="md_content_2" class="md_content" style="min-height: 50px;">
-						  {$list[0]->content}
+								{$Parsedown->text($list[0]->content)} 
 						  <div class="readerswall">
 							{volist name=':Core::loadAction("Comment/getObject",["where"=>["mail"=>["neq",$list[0]->email],"display"=>1],"field"=>"count(mail) num,poster,mail,url","order"=>"num DESC","group" => ["group"=>"mail"],"limit"=>12],"frontend","logic")' id="vo" } 
 							<section class="link-items">

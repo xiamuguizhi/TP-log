@@ -2297,33 +2297,7 @@ a.text-danger:hover,a.text-danger:focus {
 	color: #f96868 !important
 }
 
-/* 分割线 */
-.divider {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-flex: 0;
-    flex: 0 1;
-    color: #8b95a5;
-    font-size: 11px;
-    letter-spacing: .5px;
-    margin: 2rem auto;
-    width: 100%;
-}
-.divider::before,
-.divider::after {
-    content: '';
-    -webkit-box-flex: 1;
-    flex-grow: 1;
-    border-top: 1px solid #ebebeb;
-}
-.divider::before {
-    margin-right: 16px;
-}
-.divider::after {
-    margin-left: 16px;
-}
+
 
 /* 其他 */
 hr {

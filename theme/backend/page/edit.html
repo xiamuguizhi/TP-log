@@ -14,9 +14,11 @@
                     <div class="form-group  col-md-12">
                     <label for="content">内容</label>
 					{if condition="$editor eq 'ueditor'"}
-					{:Core::hook('ueditor',['name'=>'content','width'=>'100%','height'=>'','toolbars'=>'','default_str'=>$list[0]['content']])}
+						{:Core::hook('ueditor',['name'=>'content','width'=>'100%','height'=>'','toolbars'=>'','default_str'=>$list[0]['content']])}
+					{elseif condition="$editor eq 'markdown'"}
+						{:Core::hook('markdown',['name'=>'content','width'=>'100%','height'=>'580','default_str'=>$list[0]['content'],'syncScrolling'=>'single','watch'=>'false'])}
 					{elseif condition="$editor eq 'kindeditor'"/}
-					{:Core::hook('kindeditor',['name'=>'content','default_str'=>$list[0]['content']])}
+						{:Core::hook('kindeditor',['name'=>'content','default_str'=>$list[0]['content']])}
 					{else/}
 					<div id="content" name="content" >{$list[0]['content']}</div>
 					<script src="__THEMES__/tinymce/tinymce.min.js"></script>
