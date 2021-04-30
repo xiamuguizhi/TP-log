@@ -37,7 +37,7 @@
 	{volist name=':Core::loadAction("Blog/getPosts",["where"=>["channel"=>"blog","isrecommend"=>1,"hide"=>"n"],"limit"=>1,"order"=>"datetime DESC"])' id="vo"}
 	<div class="title-article list-card">
 	<h2><span style="color:red">【站长推荐】</span> 
-	<a  href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}<">{$vo.title}</a>
+	<a  href="{:url('Posts/show',['alias'=>$vo.alias])}" title="{$vo.title}">{$vo.title}</a>
 	</h2>
 	<p class="note">
 	{notempty name="$list.abstract"}
